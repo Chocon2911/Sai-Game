@@ -8,6 +8,10 @@ public abstract class Spawner : HuyMonoBehaviour
     [SerializeField] protected List<Transform> holders;
     [SerializeField] protected List<Transform> prefabs;
 
+    [Header("Stat")]
+    [SerializeField] protected int spawnCount;
+    public int SpawnCount => spawnCount;
+
     protected override void LoadComponent()
     {
         base.LoadComponent();
@@ -76,13 +80,16 @@ public abstract class Spawner : HuyMonoBehaviour
         Transform newPrefab = this.GetObjFromPool(prefab);
         newPrefab.SetPositionAndRotation(pos, rot);
         newPrefab.parent = this.holderTrans;
+        this.spawnCount++;
         return newPrefab;
     }
 
     public virtual void Despawn(Transform obj)
     {
+
         this.holders.Add(obj);
         obj.gameObject.SetActive(false);
+        this.spawnCount--;
     }
     
     //=================================Other Func==================================================

@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class JunkManager : HuyMonoBehaviour
+public class JunkSpawnerManager : HuyMonoBehaviour
 {
     [SerializeField] protected JunkSpawner junkSpawner;
     public JunkSpawner JunkSpawner => junkSpawner;
 
-    [SerializeField] protected JunkRandom junkRandom;
-    public JunkRandom JunkRandom => junkRandom;
+    [SerializeField] protected JunkSpawnerRandom junkRandom;
+    public JunkSpawnerRandom JunkRandom => junkRandom;
 
     [SerializeField] protected JunkSpawnPoints junkSpawnPoints;
     public JunkSpawnPoints JunkSpawnPoints => junkSpawnPoints;
@@ -32,7 +32,7 @@ public class JunkManager : HuyMonoBehaviour
     protected virtual void LoadJunkRandom()
     {
         if (this.junkRandom != null) return;
-        this.junkRandom = transform.GetComponent<JunkRandom>();
+        this.junkRandom = transform.GetComponent<JunkSpawnerRandom>();
         Debug.Log(transform.name + ": LoadJunkRandom", transform.gameObject);
     }
 
