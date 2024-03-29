@@ -9,4 +9,10 @@ public class JunkDespawn : DespawnByDistance
         base.ResetValue();
         this.disLimit = 20f;
     }
+
+    //=======================================Despawn==============================================
+    public override void DespawnObject()
+    {
+        JunkSpawner.Instance.Despawn(transform.parent);
+    }
 }

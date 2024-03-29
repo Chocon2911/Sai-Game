@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class JunkAbstract : HuyMonoBehaviour
 {
-    protected JunkObjManager junkObjManager;
+    [SerializeField] protected JunkObjManager junkObjManager;
     public JunkObjManager JunkObjManager => junkObjManager;
 
     protected override void LoadComponent()

@@ -19,7 +19,7 @@ public abstract class Despawner : HuyMonoBehaviour
 
     protected abstract bool CanDespawn();
 
-    protected virtual void DespawnObject()
+    public virtual void DespawnObject()
     {
         Destroy(transform.parent.gameObject);
         Debug.Log("Object is despawned", transform.gameObject);
