@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.WSA;
 
 public class JunkObjManager : HuyMonoBehaviour
 {
     [SerializeField] protected Transform model;
     public Transform Model => model;
+
+    [SerializeField] protected JunkSO junkSO;
+    public JunkSO JunkSO => junkSO;
 
     [Header("Script")]
     [SerializeField] protected JunkFly junkFly;
@@ -23,7 +27,10 @@ public class JunkObjManager : HuyMonoBehaviour
     protected override void LoadComponent()
     {
         base.LoadComponent();
+        //Other
         this.LoadModel();
+        this.LoadJunkSO();
+        //Script
         this.LoadJunkFly();
         this.LoadJunkDespawn();
         this.LoadJunkRotate();
@@ -31,6 +38,7 @@ public class JunkObjManager : HuyMonoBehaviour
     }
 
     //========================================Load Component=======================================
+    //Other
     protected virtual void LoadModel()
     {
         if (this.model != null) return;
@@ -38,6 +46,15 @@ public class JunkObjManager : HuyMonoBehaviour
         Debug.Log(transform.name + ": LoadModel", transform.gameObject);
     }
 
+    protected virtual void LoadJunkSO()
+    {
+        if (this.junkSO != null) return;
+        string pathSO = "Junk/" + transform.name;
+        this.junkSO = Resources.Load<JunkSO>(pathSO);
+        Debug.LogWarning(transform.name + ": LoadJunkSO", transform.gameObject);
+    }
+
+    //Script
     protected virtual void LoadJunkFly()
     {
         if (this.junkFly != null) return;

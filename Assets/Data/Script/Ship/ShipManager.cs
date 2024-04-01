@@ -5,24 +5,33 @@ using UnityEngine;
 public class ShipManager : HuyMonoBehaviour
 {
     [Header("ShipManager")]
+    [Header("Other")]
     [SerializeField] protected Transform model;
     public Transform Model => model;
 
+    [Header("Script")]
     [SerializeField] protected ShipMovement shipMovement;
     public ShipMovement ShipMovement => shipMovement;
 
     [SerializeField] protected ShipShooting shipShooting;
     public ShipShooting ShipShooting => shipShooting;
 
+    [SerializeField] protected Inventory inventory;
+    public Inventory Inventory => inventory;
+
     protected override void LoadComponent()
     {
         base.LoadComponent();
+        //Other
         this.LoadModel();
+        //Script
         this.LoadShipMovement();
         this.LoadShipShooting();
+        this.LoadInventory();
     }
 
     //=========================================Load Component=====================================
+    //Other
     protected virtual void LoadModel()
     {
         if (this.model != null) return;
@@ -30,6 +39,7 @@ public class ShipManager : HuyMonoBehaviour
         Debug.Log(transform.name + ": LoadModel", transform.gameObject);
     }
 
+    //Script
     protected virtual void LoadShipMovement()
     {
         if (this.shipMovement != null) return;
@@ -42,6 +52,13 @@ public class ShipManager : HuyMonoBehaviour
         if (this.shipShooting != null) return;
         this.shipShooting = transform.Find("ShipShooting").GetComponent<ShipShooting>();
         Debug.Log(transform.name + ": LoadShipShooting", transform.gameObject);
+    }
+
+    protected virtual void LoadInventory()
+    {
+        if (this.inventory != null) return;
+        this.inventory = transform.Find("Inventory").GetComponent<Inventory>();
+        Debug.Log(transform.name + ": LoadInventory", transform.gameObject);
     }
 }
  

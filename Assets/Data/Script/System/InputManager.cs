@@ -13,6 +13,9 @@ public class InputManager : MonoBehaviour
     [SerializeField] protected bool isFiring;
     public bool IsFiring => isFiring;
 
+    [SerializeField] protected bool isIdle;
+    public bool IsIdle => isIdle;
+
     private void Awake()
     {
         if (InputManager.instance != null) Debug.LogError(transform.name + ": One Instance only", transform.gameObject);
@@ -23,8 +26,10 @@ public class InputManager : MonoBehaviour
     {
         this.GetMousePos();
         this.GetSpaceDown();
+        this.GetShiftDown();
     }
 
+    //========================================Input===============================================
     protected virtual void GetMousePos()
     {
         this.mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -40,5 +45,11 @@ public class InputManager : MonoBehaviour
         {
             this.isFiring = false;
         }
+    }
+
+    protected virtual void GetShiftDown()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKey(KeyCode.LeftShift)) this.isIdle = true;
+        else this.isIdle = false;
     }
 }

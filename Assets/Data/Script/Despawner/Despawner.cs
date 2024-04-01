@@ -5,7 +5,7 @@ using UnityEngine;
 
 public abstract class Despawner : HuyMonoBehaviour
 {
-    protected virtual void Update()
+    protected virtual void FixedUpdate()
     {
         this.CanDespawn();
         this.Despawning();

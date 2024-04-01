@@ -10,7 +10,7 @@ public class JunkSpawnerRandom : HuyMonoBehaviour
     [Header("Stat")]
     [SerializeField] protected float randomCooldown = 1;
     [SerializeField] protected float randomTimer = 0;
-    [SerializeField] protected float randomLimit = 15;
+    [SerializeField] protected int randomLimit = 15;
 
     [SerializeField] protected bool canSpawn;
 
@@ -39,23 +39,30 @@ public class JunkSpawnerRandom : HuyMonoBehaviour
         Debug.Log(transform.name + ": LoadJunkManager", transform.gameObject);
     }
 
+    //=======================================Spawn================================================
     protected virtual void JunkSpawning()
     {
         if (!this.canSpawn) return;
+        this.canSpawn = false;
         Vector3 pos = this.junkManager.JunkSpawnPoints.GetRandom().position;
         Quaternion rot = this.junkManager.JunkSpawnPoints.GetRandom().rotation;
-        Transform prefab = this.junkManager.JunkSpawner.Spawn(JunkSpawner.Instance.JunkOne, pos, rot);
+        string prefabName = JunkSpawner.Instance.RandomPrefab().name;
+
+        Transform prefab = this.junkManager.JunkSpawner.Spawn(prefabName, pos, rot);
         prefab.gameObject.SetActive(true);
-        Debug.Log(transform.name + ": Spawn Junk", transform.gameObject);
+        //Debug.Log(transform.name + ": Spawn Junk", transform.gameObject);
         //Invoke(nameof(this.JunkSpawning), 1f);
     }
 
     //======================================Checker===============================================
     protected virtual void CheckCanSpawn()
     {
-        //continue
+        if (!this.IsRandomReachLimit()) return;
+        if (!this.IsCooldown()) return;
+        this.canSpawn = true;
     }
 
+    //=======================================Bool=================================================
     protected virtual bool IsCooldown()
     {
         if (this.randomTimer < this.randomCooldown)

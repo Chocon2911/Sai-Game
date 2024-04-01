@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
-[RequireComponent(typeof(CircleCollider2D))]
+[RequireComponent(typeof(CapsuleCollider2D))]
 public class DamageReceiver : HuyMonoBehaviour
 {
     [Header("Damage Receiver")]
-    [SerializeField] protected CircleCollider2D bodyCol;
+    [SerializeField] protected CapsuleCollider2D bodyCol;
 
     [Header("Stat")]
     [SerializeField] protected float health;
@@ -24,11 +25,17 @@ public class DamageReceiver : HuyMonoBehaviour
         this.Reborn();
     }
 
+    protected override void ResetValue()
+    {
+        base.ResetValue();
+        this.Reborn();
+    }
+
     //=========================================Load Component=====================================
     protected virtual void LoadBodyCollider()
     {
         if (this.bodyCol != null) return;
-        this.bodyCol = transform.GetComponent<CircleCollider2D>();
+        this.bodyCol = transform.GetComponent<CapsuleCollider2D>();
         this.bodyCol.isTrigger = true;
         Debug.Log(transform.name + ": LoadBodyCollider", transform.gameObject);
     }

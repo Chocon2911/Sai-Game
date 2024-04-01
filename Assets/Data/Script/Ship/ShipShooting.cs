@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShipShooting : MonoBehaviour
+public class ShipShooting : HuyMonoBehaviour
 {
     [SerializeField] protected Transform bulletObj;
     [SerializeField] protected float shootDelay = 1f;
@@ -37,11 +37,15 @@ public class ShipShooting : MonoBehaviour
         Vector2 bulletPos = transform.parent.position;
         Quaternion bulletRot = transform.parent.rotation;
         Transform newBullet = BulletSpawner.Instance.Spawn(BulletSpawner.Instance.BulletOne , bulletPos, bulletRot);
+        
         if (newBullet == null) return;
+
         newBullet.gameObject.SetActive(true);
-        Debug.Log(transform.name + ": Shooting", transform.gameObject);
+        BulletManager bulletManager = newBullet.GetComponent<BulletManager>();
+        bulletManager.SetShooter(transform.parent);
+        //Debug.Log(transform.name + ": Shooting", transform.gameObject);
 
         this.shootTimer = 0f;
-        Debug.Log(transform.name + ": Reloading", transform.gameObject);
+        //Debug.Log(transform.name + ": Reloading", transform.gameObject);
     }
 }

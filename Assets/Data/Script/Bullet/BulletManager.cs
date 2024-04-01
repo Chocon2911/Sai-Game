@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class BulletManager : HuyMonoBehaviour
 {
+    //Other
+    [SerializeField] protected Transform shooter;
+    public Transform Shooter => shooter;
+
+    //Script
     [SerializeField] protected BulletDamageSender bulletDamageSender;
     public DamageSender BulletDamageSender => bulletDamageSender;
 
@@ -19,6 +24,7 @@ public class BulletManager : HuyMonoBehaviour
     protected override void LoadComponent()
     {
         base.LoadComponent();
+        //Script
         this.LoadDamageSender();
         this.LoadBulletDespawn();
         this.LoadBulletFly();
@@ -26,6 +32,7 @@ public class BulletManager : HuyMonoBehaviour
     }
 
     //==========================================Load Component====================================
+    //Script
     protected virtual void LoadDamageSender()
     {
         if (this.bulletDamageSender != null) return;
@@ -52,5 +59,11 @@ public class BulletManager : HuyMonoBehaviour
         if (this.bulletImpact != null) return;
         this.bulletImpact = transform.Find("BulletImpact").GetComponent<BulletImpact>();
         Debug.Log(transform.name + ": LoadBulletImpact", transform.gameObject);
+    }
+
+    //==============================================Setter========================================
+    public virtual void SetShooter(Transform shooter)
+    {
+        this.shooter = shooter;
     }
 }

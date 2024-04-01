@@ -30,6 +30,7 @@ public class ShipMovement : MonoBehaviour
 
     protected virtual void Moving()
     {
+        if (InputManager.Instance.IsIdle) return;
         Vector3 newPos = Vector3.Lerp(transform.parent.position, targetPos, this.speed * Time.fixedDeltaTime);
         transform.parent.position = newPos;
     }

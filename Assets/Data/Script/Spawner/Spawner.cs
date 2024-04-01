@@ -4,6 +4,7 @@ using UnityEngine;
 
 public abstract class Spawner : HuyMonoBehaviour
 {
+    [Header("Spawner")]
     [SerializeField] protected Transform holderTrans;
     [SerializeField] protected List<Transform> holders;
     [SerializeField] protected List<Transform> prefabs;
@@ -77,11 +78,22 @@ public abstract class Spawner : HuyMonoBehaviour
             return null;
         }
 
+        return Spawn(prefab, pos, rot);
+    }
+
+    public virtual Transform Spawn(Transform prefab, Vector3 pos, Quaternion rot)
+    {
         Transform newPrefab = this.GetObjFromPool(prefab);
         newPrefab.SetPositionAndRotation(pos, rot);
         newPrefab.parent = this.holderTrans;
         this.spawnCount++;
         return newPrefab;
+    }
+
+    public virtual Transform RandomPrefab()
+    {
+        int rand = Random.Range(0, this.prefabs.Count);
+        return this.prefabs[rand];
     }
 
     public virtual void Despawn(Transform obj)
@@ -121,13 +133,13 @@ public abstract class Spawner : HuyMonoBehaviour
             if (prefab.name == obj.name + "(Clone)")
             {
                 this.holders.Remove(prefab);
-                Debug.Log(transform.name + ": Get Obj from Pool", transform.gameObject);
+                //Debug.Log(transform.name + ": Get Obj from Pool", transform.gameObject);
                 return prefab;
             }
         }
 
         Transform newPrefab = Instantiate(obj);
-        Debug.Log(transform.name + ": Clone new Obj", transform.gameObject);
+        //Debug.Log(transform.name + ": Clone new Obj", transform.gameObject);
         return newPrefab;
     }
 }

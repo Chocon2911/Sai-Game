@@ -14,5 +14,6 @@ public class JunkDespawn : DespawnByDistance
     public override void DespawnObject()
     {
         JunkSpawner.Instance.Despawn(transform.parent);
+        //Debug.Log(transform.name + ": Despawn Object", transform.gameObject);
     }
 }

@@ -37,9 +37,36 @@ public class BulletImpact : BulletAbstract
         Debug.Log(transform.name + ": LoadRigibidbody", transform.gameObject);
     }
 
+    //==============================================FX============================================
+    protected virtual void SpawnFXImpact()
+    {
+        string fxImpactName = FXSpawner.Instance.Impact_1;
+        Transform newPrefab = FXSpawner.Instance.Spawn(fxImpactName, this.GetHitPos(), GetHitRot());
+
+        if (newPrefab == null) return;
+        newPrefab.gameObject.SetActive(true);
+        //Debug.Log(transform.name + ": SpawnFXImpact", transform.gameObject);
+    }
+
+    protected virtual Vector2 GetHitPos()
+    {
+        Vector2 hitPos = transform.parent.position;
+        return hitPos;
+    }
+
+    protected virtual Quaternion GetHitRot()
+    {
+        Quaternion hitRot = transform.parent.rotation;
+        return hitRot;
+    }
+
     //============================================Impact==========================================
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.transform.parent == this.bulletManager.Shooter) return;
+
         this.bulletManager.BulletDamageSender.SendByObj(collision.transform);
+        this.SpawnFXImpact(); //SaiGame get it to DamageSender to fix bug,
+                              //but i think it's bad idea so gonna watch a few more ep before doing it
     }
 }

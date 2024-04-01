@@ -7,10 +7,10 @@ public abstract class DespawnByDistance : Despawner
     [SerializeField] protected float disLimit = 50f;
     [SerializeField] protected float currDis = 0f;
 
-    protected override void Update()
+    protected override void FixedUpdate()
     {
         this.DistanceBtwObjNCamera();
-        base.Update();
+        base.FixedUpdate();
     }
 
     protected override void LoadComponent()
