@@ -7,17 +7,18 @@ public class DamageSender : HuyMonoBehaviour
     [SerializeField] protected float damage = 1f;
 
     //==========================================Sender============================================
-    public virtual void SendByObj(Transform obj)
+    public virtual bool SendByObj(Transform obj)
     {
         DamageReceiver damageReceiver;
         damageReceiver = obj.GetComponentInChildren<DamageReceiver>();
-        if (damageReceiver == null) return;
-        this.SendByReceiver(damageReceiver);
+        if (damageReceiver == null) return false;
+        return this.SendByReceiver(damageReceiver);
     }
 
-    public virtual void SendByReceiver(DamageReceiver damageReceiver)
+    public virtual bool SendByReceiver(DamageReceiver damageReceiver)
     {
         damageReceiver.Deduct(this.damage);
+        return true;
     }
 
     //============================================Object==========================================

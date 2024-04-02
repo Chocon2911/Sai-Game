@@ -64,9 +64,6 @@ public class BulletImpact : BulletAbstract
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.transform.parent == this.bulletManager.Shooter) return;
-
-        this.bulletManager.BulletDamageSender.SendByObj(collision.transform);
-        this.SpawnFXImpact(); //SaiGame get it to DamageSender to fix bug,
-                              //but i think it's bad idea so gonna watch a few more ep before doing it
+        if (this.bulletManager.BulletDamageSender.SendByObj(collision.transform)) this.SpawnFXImpact();
     }
 }
