@@ -37,13 +37,15 @@ public class ItemLooter : HuyMonoBehaviour
     {
         if (this.rb != null) return;
         this.rb = transform.GetComponent<Rigidbody2D>();
+        this.rb.isKinematic = true;
         Debug.Log(transform.name + ": LoadRigidbody", transform.gameObject);
     }
+
     //Script
     protected virtual void LoadInventory()
     {
         if (this.inventory != null) return;
-        this.inventory = transform.GetComponent<Inventory>();
+        this.inventory = transform.parent.GetComponent<Inventory>();
         Debug.Log(transform.name + ": LoadInventory", transform.gameObject);
     }
 
@@ -53,5 +55,10 @@ public class ItemLooter : HuyMonoBehaviour
         ItemPickedUp itemPickedUp = collision.GetComponent<ItemPickedUp>();
         if (itemPickedUp == null) return;
         //Loot Item here
+        ItemCode itemCode = itemPickedUp.GetItemCode();
+        if (this.inventory.AddItem(itemCode, 1))
+        {
+            itemPickedUp.Picked();
+        }
     }
 }

@@ -7,15 +7,15 @@ public class Inventory : HuyMonoBehaviour
     [SerializeField] protected int maxSlot = 70;
     [SerializeField] protected List<ItemInventory> items;
 
-    protected virtual void Start()
+    //============================================Item============================================
+    protected virtual ItemInventory GetItemByCode(ItemCode itemCode)
     {
-        this.AddItem(ItemCode.Iron, 1);
-        this.AddItem(ItemCode.Iron, 1);
-        this.AddItem(ItemCode.Gold, 3);
-        this.AddItem(ItemCode.Gold, 6);
+        ItemInventory itemInventory = this.items.Find((item) => item.ItemDataSO.ItemCode == itemCode);
+        if (itemInventory == null) itemInventory = this.AddEmptyItemData(itemCode);
+        return itemInventory;
     }
 
-    //===========================================Public===========================================
+    //=========================================Modify Item========================================
     public virtual bool AddItem(ItemCode itemCode, int addAmount)
     {
         ItemInventory itemInventory = this.GetItemByCode(itemCode);
@@ -25,14 +25,6 @@ public class Inventory : HuyMonoBehaviour
 
         itemInventory.ItemAmount = newAmount;
         return true;
-    }
-
-    //============================================Item============================================
-    protected virtual ItemInventory GetItemByCode(ItemCode itemCode)
-    {
-        ItemInventory itemInventory = this.items.Find((item) => item.ItemDataSO.ItemCode == itemCode);
-        if (itemInventory == null) itemInventory = this.AddEmptyItemData(itemCode);
-        return itemInventory;
     }
 
     protected virtual ItemInventory AddEmptyItemData(ItemCode itemCode)
@@ -52,5 +44,23 @@ public class Inventory : HuyMonoBehaviour
         }
 
         return null;
+    }
+
+    public virtual bool DeduceItem(ItemCode itemCode, int deduceAmount)
+    {
+        ItemInventory itemInventory = this.GetItemByCode(itemCode);
+        int newAmount = itemInventory.ItemAmount - deduceAmount;
+        if (newAmount < 0) return false;
+        
+        itemInventory.ItemAmount = newAmount;
+        return true;
+    }
+
+    public virtual bool TryDeduceItem(ItemCode itemCode, int deduceAmount)
+    {
+        ItemInventory itemInventory = this.GetItemByCode(itemCode);
+        int newAmount = itemInventory.ItemAmount - deduceAmount;
+        if (newAmount < 0) return false;
+        return true;
     }
 }

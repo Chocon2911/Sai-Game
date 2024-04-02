@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9243567ad8e45a849a4457af636f1a9e, type: 3}
   m_Name: Gold
   m_EditorClassIdentifier: 
-  ItemCode: 1
-  ItemType: 0
+  ItemCode: 2
+  ItemType: 1
   ItemName: Gold
   DefaultMaxStack: 7
