@@ -1503,7 +1503,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   disLimit: 70
   currDis: 0
-  itemDropManager: {fileID: 0}
+  itemDropManager: {fileID: 920565154}
 --- !u!1 &986258565
 GameObject:
   m_ObjectHideFlags: 0
@@ -2216,7 +2216,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0a26a70e3e38a9468e3938fecfe4043, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemDropManager: {fileID: 0}
+  itemDropManager: {fileID: 920565154}
   bodyCollider: {fileID: 1351241866}
 --- !u!58 &1351241866
 CircleCollider2D:
@@ -2803,7 +2803,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0a26a70e3e38a9468e3938fecfe4043, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemDropManager: {fileID: 0}
+  itemDropManager: {fileID: 1422550312}
   bodyCollider: {fileID: 1787188527}
 --- !u!58 &1787188527
 CircleCollider2D:
@@ -2886,7 +2886,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   disLimit: 70
   currDis: 0
-  itemDropManager: {fileID: 0}
+  itemDropManager: {fileID: 1422550312}
 --- !u!1 &1794321155
 GameObject:
   m_ObjectHideFlags: 0

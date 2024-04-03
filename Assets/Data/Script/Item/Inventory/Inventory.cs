@@ -10,7 +10,7 @@ public class Inventory : HuyMonoBehaviour
     //============================================Item============================================
     protected virtual ItemInventory GetItemByCode(ItemCode itemCode)
     {
-        ItemInventory itemInventory = this.items.Find((item) => item.ItemDataSO.ItemCode == itemCode);
+        ItemInventory itemInventory = this.items.Find((item) => item.ItemDropSO.ItemCode == itemCode);
         if (itemInventory == null) itemInventory = this.AddEmptyItemData(itemCode);
         return itemInventory;
     }
@@ -29,14 +29,14 @@ public class Inventory : HuyMonoBehaviour
 
     protected virtual ItemInventory AddEmptyItemData(ItemCode itemCode)
     {
-        var itemDatas = Resources.LoadAll("ItemData", typeof(ItemDataSO));
-        foreach(ItemDataSO itemData in itemDatas)
+        var itemDatas = Resources.LoadAll("ItemDrop", typeof(ItemDropSO));
+        foreach(ItemDropSO itemData in itemDatas)
         {
             if (itemData.ItemCode != itemCode) continue;
 
             ItemInventory itemInventory = new ItemInventory
             {
-                ItemDataSO = itemData,
+                ItemDropSO = itemData,
                 MaxStack = itemData.DefaultMaxStack
             };
             this.items.Add(itemInventory);

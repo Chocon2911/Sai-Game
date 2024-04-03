@@ -12,13 +12,13 @@ public class DamageSender : HuyMonoBehaviour
         DamageReceiver damageReceiver;
         damageReceiver = obj.GetComponentInChildren<DamageReceiver>();
         if (damageReceiver == null) return false;
-        return this.SendByReceiver(damageReceiver);
+        this.SendByReceiver(damageReceiver);
+        return true;
     }
 
-    public virtual bool SendByReceiver(DamageReceiver damageReceiver)
+    public virtual void SendByReceiver(DamageReceiver damageReceiver)
     {
         damageReceiver.Deduct(this.damage);
-        return true;
     }
 
     //============================================Object==========================================
