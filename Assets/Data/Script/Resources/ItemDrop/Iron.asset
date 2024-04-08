@@ -16,3 +16,5 @@ MonoBehaviour:
   ItemType: 1
   ItemName: Iron
   DefaultMaxStack: 7
+  ItemUpgradeLevel:
+  - ItemUpgradeRequires: []

@@ -31,8 +31,8 @@ public abstract class DespawnByDistance : Despawner
     {
         float objX = transform.position.x;
         float objY = transform.position.y;
-        float camX = GameManager.Instance.transform.position.x;
-        float camY = GameManager.Instance.transform.position.y;
+        float camX = GameManager.Instance.MainCamera.transform.position.x;
+        float camY = GameManager.Instance.MainCamera.transform.position.y;
         this.currDis = Mathf.Sqrt(Mathf.Pow(objX - camX, 2f) + Mathf.Pow(objY - camY, 2f));
     }
 }

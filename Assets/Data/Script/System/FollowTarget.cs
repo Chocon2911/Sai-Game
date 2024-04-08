@@ -16,6 +16,6 @@ public class FollowTarget : HuyMonoBehaviour
     protected virtual void Following()
     {
         if (this.target == null) return;
-        transform.position = Vector3.Lerp(transform.position, target.position, this.speed * Time.fixedDeltaTime);
+        transform.position = Vector2.Lerp(transform.position, target.position, this.speed * Time.fixedDeltaTime);
     }
 }

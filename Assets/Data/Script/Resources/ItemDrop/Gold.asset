@@ -16,3 +16,7 @@ MonoBehaviour:
   ItemType: 1
   ItemName: Gold
   DefaultMaxStack: 7
+  ItemUpgradeLevel:
+  - ItemUpgradeRequires:
+    - ItemDropSO: {fileID: 11400000, guid: 08150e2b47b51784f8b6e12ad0ec2b3c, type: 2}
+      ItemAmount: 10

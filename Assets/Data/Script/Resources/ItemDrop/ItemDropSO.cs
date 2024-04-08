@@ -9,4 +9,5 @@ public class ItemDropSO : ScriptableObject
     public ItemType ItemType;
     public string ItemName = "Item";
     public int DefaultMaxStack = 7;
+    public List<ItemUpgradeLevel> ItemUpgradeLevel;
 }
