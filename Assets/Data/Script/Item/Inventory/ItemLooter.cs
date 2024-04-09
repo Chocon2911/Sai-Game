@@ -54,9 +54,10 @@ public class ItemLooter : HuyMonoBehaviour
     {
         ItemPickedUp itemPickedUp = collision.GetComponent<ItemPickedUp>();
         if (itemPickedUp == null) return;
+
         //Loot Item here
-        ItemCode itemCode = itemPickedUp.GetItemCode();
-        if (this.inventory.AddItem(itemCode, 1))
+        ItemInventory itemInventory = itemPickedUp.GetItemInventory();
+        if (this.inventory.AddItem(itemInventory))
         {
             itemPickedUp.Picked();
         }

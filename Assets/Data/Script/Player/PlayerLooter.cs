@@ -7,10 +7,8 @@ public class PlayerLooter : PlayerAbstract
     //===========================================Looter===========================================
     public virtual void LootItem(ItemPickedUp itemPickedUp)
     {
-        Debug.Log(transform.name + ": Loot Item", transform.gameObject);
-
-        ItemCode itemCode = itemPickedUp.GetItemCode();
-        if (this.playerManager.CurrShip.Inventory.AddItem(itemCode, 1))
+        ItemInventory itemInventory = itemPickedUp.GetItemInventory();
+        if (this.playerManager.CurrShip.Inventory.AddItem(itemInventory))
         {
             itemPickedUp.Picked();
         }

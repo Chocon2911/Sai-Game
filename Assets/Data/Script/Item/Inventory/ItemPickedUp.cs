@@ -35,6 +35,12 @@ public class ItemPickedUp : ItemDropAbstract
         return this.String2ItemCode(itemName);
     }
 
+    public virtual ItemInventory GetItemInventory()
+    {
+        ItemInventory itemInventory = this.itemDropManager.ItemInventory;
+        return itemInventory;
+    }
+
     public virtual void Picked()
     {
         this.itemDropManager.ItemDespawn.DespawnObject();

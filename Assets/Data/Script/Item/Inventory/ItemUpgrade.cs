@@ -10,14 +10,14 @@ public class ItemUpgrade : InventoryAbstract
 
     protected virtual void Start()
     {
-        Invoke("Test", 5);
+        //Invoke("Test", 5);
     }
 
-    protected virtual void Test()
-    {
-        this.UpgradeItemByIndex(0);
-        Debug.Log("Test");
-    }
+    //protected virtual void Test()
+    //{
+    //    this.UpgradeItemByIndex(0);
+    //    Debug.Log("Test");
+    //}
 
     //===========================================public===========================================
     public virtual bool UpgradeItemByIndex(int itemsIndex)
@@ -47,6 +47,8 @@ public class ItemUpgrade : InventoryAbstract
     {
         if (itemUpgradeLevels.Count <= 0) return false;
         if (itemUpgradeLevels.Count < currLevel) return false;
+
+        //Debug.Log(transform.name + ": IsItemUpgradable", transform.gameObject);
         return true;
     }
 
@@ -58,8 +60,11 @@ public class ItemUpgrade : InventoryAbstract
             ItemCode itemCode = itemUpgradeRequire.ItemDropSO.ItemCode;
             int upgradeRequireAmount = itemUpgradeRequire.ItemAmount;
             if (!this.inventory.CheckItemAmountEnough(itemCode, upgradeRequireAmount)) return false;
+
+            //Debug.Log(transform.name + ": EnoughItem " + itemUpgradeRequire.ItemDropSO.ItemCode.ToString(), transform.gameObject);
         }
 
+        //Debug.Log(transform.name + ": HaveEnoughUpgradeMaterials", transform.gameObject);
         return true;
     }
 
@@ -76,5 +81,7 @@ public class ItemUpgrade : InventoryAbstract
 
             this.inventory.DeduceItem(itemCode, requireAmount);
         }
+
+        //Debug.Log(transform.name + ": DeduceUpgradeMaterials", transform.gameObject);
     }
 }

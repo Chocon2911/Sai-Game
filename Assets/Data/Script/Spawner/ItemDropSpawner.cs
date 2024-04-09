@@ -28,7 +28,11 @@ public class ItemDropSpawner : Spawner
     {
         ItemCode itemCode = itemInventory.ItemDropSO.ItemCode;
         Transform itemDrop = this.Spawn(itemCode.ToString(), pos, rot);
-        if (itemDrop == null) Debug.LogWarning(transform.name + ": No item name " + itemCode.ToString());
+        if (itemDrop == null) Debug.LogWarning(transform.name + ": No item name " + itemCode.ToString(), transform.gameObject);
+        
+        ItemDropManager itemDropManager = itemDrop.GetComponent<ItemDropManager>();
+        itemDropManager.SetItemInventory(itemInventory);
         itemDrop.gameObject.SetActive(true);
+
     }
 }

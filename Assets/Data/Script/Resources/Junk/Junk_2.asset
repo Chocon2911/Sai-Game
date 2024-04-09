@@ -15,7 +15,7 @@ MonoBehaviour:
   JunkName: Junk
   MaxHealth: 5
   DropList:
-  - ItemDropSO: {fileID: 11400000, guid: 7f92d3a964d308d429b20798e9eda9fa, type: 2}
+  - ItemDropSO: {fileID: 11400000, guid: 92fb94410ea312a4bb70861c56130b5a, type: 2}
     ItemDropRate: 100000
     minDrop: 1
     maxDrop: 3

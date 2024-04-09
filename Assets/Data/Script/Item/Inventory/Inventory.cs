@@ -42,78 +42,34 @@ public class Inventory : HuyMonoBehaviour
         Debug.Log(transform.name + ": LoadItemUpgrade", transform.gameObject);
     }
 
-    //=========================================Modify Item========================================
-    public virtual bool AddItem(ItemCode itemCode, int addAmount)
+    //==========================================Add Item==========================================
+    public virtual bool AddItem(ItemInventory itemInventory)
     {
-        if (addAmount <= 0) return false;
-        foreach (ItemInventory itemInventory in this.items)
-        {
-            if (itemCode != itemInventory.ItemDropSO.ItemCode) continue;
-            if (itemInventory.ItemAmount >= itemInventory.MaxStack) continue;
+        int addAmount = itemInventory.ItemAmount;
+        ItemDropSO itemDropSO = itemInventory.ItemDropSO;
+        ItemCode itemCode = itemDropSO.ItemCode;
+        ItemType itemType = itemDropSO.ItemType;
 
-            int newAmount = addAmount - (itemInventory.MaxStack - itemInventory.ItemAmount);
-            if (newAmount <= 0)
-            {
-                itemInventory.ItemAmount += addAmount;
-                addAmount = 0;
-                break;
-            }
+        if (itemType == ItemType.Equipment) return this.AddEquipment(itemInventory);
+        else if (itemType == ItemType.Resource) return this.AddResource(itemCode, addAmount);
 
-            addAmount = newAmount;
-            itemInventory.ItemAmount = itemInventory.MaxStack;
-        }
+        return false;
+    }
 
-        if (addAmount <= 0) return true;
-        for (int i = 0; i < this.maxSlot; i++)
-        {
-            if (this.IsInventoryFull()) return false;
+    public virtual bool AddEquipment(ItemInventory itemInventory)
+    {
+        if (this.IsInventoryFull()) return false;
 
-            ItemInventory newItemInvemtory = this.CreateEmptyItemInventory(itemCode);
-            if (newItemInvemtory == null) return false;
-
-            int newAmount = addAmount - newItemInvemtory.MaxStack;
-            if (newAmount <= 0)
-            {
-                newItemInvemtory.ItemAmount = addAmount;
-                break;
-            }
-
-            addAmount -= newItemInvemtory.MaxStack;
-            newItemInvemtory.ItemAmount = newItemInvemtory.MaxStack;
-        }
+        this.items.Add(itemInventory.CloneObjStat());
 
         return true;
-    }
-
-    protected virtual ItemInventory CreateEmptyItemInventory(ItemCode itemCode)
-    {
-        var itemDrops = Resources.LoadAll("ItemDrop", typeof(ItemDropSO));
-        foreach (ItemDropSO itemDrop in itemDrops)
-        {
-            if (itemDrop.ItemCode != itemCode) continue;
-            ItemInventory itemInventory = new ItemInventory
-            {
-                ItemDropSO = itemDrop,
-                MaxStack = itemDrop.DefaultMaxStack,
-                ItemAmount = 0,
-            };
-            this.items.Add(itemInventory);
-            return itemInventory;
-        }
-        return null;
-    }
-
-    protected virtual bool IsInventoryFull()
-    {
-        if (this.items.Count >= this.maxSlot) return true;
-        return false;
     }
 
     //========================================Upgrade Item========================================
     public virtual bool CheckItemAmountEnough(ItemCode itemCode, int checkAmount)
     {
         int totalAmount = this.TotalItemAmount(itemCode);
-        return totalAmount > checkAmount;
+        return totalAmount >= checkAmount;
     }
 
     public virtual void DeduceItem(ItemCode itemCode, int totalDeduceAmount)
@@ -173,101 +129,101 @@ public class Inventory : HuyMonoBehaviour
         }
     }
 
-    ////=========================================Modify Item========================================
-    //public virtual bool AddItem(ItemCode itemCode, int addCount)
-    //{
-    //    ItemDropSO itemDrop = this.GetItemDropSO(itemCode);
+    //=======================================ItemInventory========================================
+    public virtual bool AddResource(ItemCode itemCode, int addCount)
+    {
+        ItemDropSO itemDrop = this.GetItemDropSO(itemCode);
 
-    //    int addRemain = addCount;
-    //    int newCount;
-    //    int itemMaxStack;
-    //    int addMore;
-    //    ItemInventory itemExist;
-    //    for (int i = 0; i < this.maxSlot; i++)
-    //    {
-    //        itemExist = this.GetItemNotFullStack(itemCode);
-    //        if (itemExist == null)
-    //        {
-    //            if (this.IsInventoryFull()) return false;
+        int addRemain = addCount;
+        int newCount;
+        int itemMaxStack;
+        int addMore;
+        ItemInventory itemExist;
+        for (int i = 0; i < this.maxSlot; i++)
+        {
+            itemExist = this.GetItemNotFullStack(itemCode);
+            if (itemExist == null)
+            {
+                if (this.IsInventoryFull()) return false;
 
-    //            itemExist = this.CreateEmptyItemInventory(itemDrop);
-    //            this.items.Add(itemExist);
-    //        }
+                itemExist = this.CreateEmptyItemInventory(itemDrop);
+                this.items.Add(itemExist);
+            }
 
-    //        newCount = itemExist.ItemAmount + addCount;
+            newCount = itemExist.ItemAmount + addCount;
 
-    //        itemMaxStack = this.GetMaxStack(itemExist);
-    //        if (newCount > itemMaxStack)
-    //        {
-    //            addMore = itemExist.MaxStack - itemExist.ItemAmount;
-    //            newCount = itemExist.ItemAmount + addMore;
-    //            addRemain -= addMore;
-    //        }
-    //        else
-    //        {
-    //            addRemain -= newCount;
-    //        }
+            itemMaxStack = this.GetMaxStack(itemExist);
+            if (newCount > itemMaxStack)
+            {
+                addMore = itemExist.MaxStack - itemExist.ItemAmount;
+                newCount = itemExist.ItemAmount + addMore;
+                addRemain -= addMore;
+            }
+            else
+            {
+                addRemain -= newCount;
+            }
 
-    //        itemExist.ItemAmount = newCount;
-    //        if (addRemain <= 0) break;
-    //    }
-    //    return true;
-    //}
+            itemExist.ItemAmount = newCount;
+            if (addRemain <= 0) break;
+        }
+        return true;
+    }
 
-    ////==========================================ItemDropSO========================================
-    //protected virtual ItemDropSO GetItemDropSO(ItemCode itemCode)
-    //{
-    //    var itemDrops = Resources.LoadAll("ItemDrop", typeof(ItemDropSO));
-    //    foreach (ItemDropSO itemDrop in itemDrops)
-    //    {
-    //        if (itemDrop.ItemCode != itemCode) continue;
-    //        return itemDrop;
-    //    }
-    //    return null;
-    //}
+    //==========================================ItemDropSO========================================
+    protected virtual ItemDropSO GetItemDropSO(ItemCode itemCode)
+    {
+        var itemDrops = Resources.LoadAll("ItemDrop", typeof(ItemDropSO));
+        foreach (ItemDropSO itemDrop in itemDrops)
+        {
+            if (itemDrop.ItemCode != itemCode) continue;
+            return itemDrop;
+        }
+        return null;
+    }
 
-    ////============================================Stack===========================================
-    //protected virtual bool IsFullStack(ItemInventory itemInventory)
-    //{
-    //    if (itemInventory == null) return true;
-    //    return itemInventory.ItemAmount >= itemInventory.MaxStack;
-    //}
+    //============================================Stack===========================================
+    protected virtual bool IsFullStack(ItemInventory itemInventory)
+    {
+        if (itemInventory == null) return true;
+        return itemInventory.ItemAmount >= itemInventory.MaxStack;
+    }
 
-    //protected virtual ItemInventory GetItemNotFullStack(ItemCode itemCode)
-    //{
-    //    foreach (ItemInventory itemInventory in this.items)
-    //    {
-    //        if (itemCode != itemInventory.ItemDropSO.ItemCode) continue;
-    //        if (this.IsFullStack(itemInventory)) continue;
-    //        return itemInventory;
-    //    }
+    protected virtual ItemInventory GetItemNotFullStack(ItemCode itemCode)
+    {
+        foreach (ItemInventory itemInventory in this.items)
+        {
+            if (itemCode != itemInventory.ItemDropSO.ItemCode) continue;
+            if (this.IsFullStack(itemInventory)) continue;
+            return itemInventory;
+        }
 
-    //    return null;
-    //}
+        return null;
+    }
 
-    //protected virtual int GetMaxStack(ItemInventory itemInventory)
-    //{
-    //    if (itemInventory == null) return 0;
+    protected virtual int GetMaxStack(ItemInventory itemInventory)
+    {
+        if (itemInventory == null) return 0;
 
-    //    return itemInventory.MaxStack;
-    //}
+        return itemInventory.MaxStack;
+    }
 
-    ////=========================================Inventory==========================================
-    //protected virtual bool IsInventoryFull()
-    //{
-    //    if (this.items.Count >= this.maxSlot) return true;
-    //    return false;
-    //}
+    //=========================================Inventory==========================================
+    protected virtual bool IsInventoryFull()
+    {
+        if (this.items.Count >= this.maxSlot) return true;
+        return false;
+    }
 
-    //protected virtual ItemInventory CreateEmptyItemInventory(ItemDropSO itemDropSO)
-    //{
-    //    ItemInventory itemInventory = new ItemInventory
-    //    {
-    //        ItemDropSO = itemDropSO,
-    //        ItemAmount = 0,
-    //        MaxStack = itemDropSO.DefaultMaxStack,
-    //    };
+    protected virtual ItemInventory CreateEmptyItemInventory(ItemDropSO itemDropSO)
+    {
+        ItemInventory itemInventory = new ItemInventory
+        {
+            ItemDropSO = itemDropSO,
+            ItemAmount = 0,
+            MaxStack = itemDropSO.DefaultMaxStack,
+        };
 
-    //    return itemInventory;
-    //}
+        return itemInventory;
+    }
 }

@@ -10,10 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 557f00a48606f0847a3e6ef791d3f2aa, type: 3}
-  m_Name: Gold
+  m_Name: Sword
   m_EditorClassIdentifier: 
-  ItemCode: 2
-  ItemType: 1
-  ItemName: Gold
-  DefaultMaxStack: 7
-  ItemUpgradeLevel: []
+  ItemCode: 3
+  ItemType: 2
+  ItemName: Sword
+  DefaultMaxStack: 1
+  ItemUpgradeLevel:
+  - ItemUpgradeRequires:
+    - ItemDropSO: {fileID: 11400000, guid: 08150e2b47b51784f8b6e12ad0ec2b3c, type: 2}
+      ItemAmount: 10
+    - ItemDropSO: {fileID: 11400000, guid: 7f92d3a964d308d429b20798e9eda9fa, type: 2}
+      ItemAmount: 3

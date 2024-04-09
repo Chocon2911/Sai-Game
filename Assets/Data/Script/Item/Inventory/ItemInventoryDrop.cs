@@ -4,16 +4,26 @@ using UnityEngine;
 
 public class ItemInventoryDrop : InventoryAbstract
 {
-    //=========================================Item Drop==========================================
-    public virtual void DropItemByIndex(int itemIndex)
+    protected virtual void Start()
     {
-        if (itemIndex < 0 || itemIndex < this.inventory.Items.Count) return;
+        //Invoke("Test", 10);
+    }
+
+    //protected virtual void Test()
+    //{
+    //    this.DropItemByIndex(0);
+    //    Debug.Log("Hello tesing here");
+    //}
+
+    //=========================================Item Drop==========================================
+    public virtual void DropItemByIndex(int itemIndex, Vector2 dropPos, Quaternion dropRot)
+    {
+        if (itemIndex < 0 || itemIndex > this.inventory.Items.Count) Debug.LogError(transform.name + ": Wrong itemIndex", transform.gameObject);
 
         ItemInventory itemInventory = this.inventory.Items[itemIndex];
-        Vector2 dropPos = transform.parent.parent.position;
-        dropPos += new Vector2(1, 0);
-        Quaternion dropRot = transform.parent.parent.rotation;
 
         ItemDropSpawner.Instance.Drop(itemInventory, dropPos, dropRot);
+        this.inventory.Items.Remove(itemInventory);
+        this.inventory.RemoveEmptyItemInventory();
     }
 }
