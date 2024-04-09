@@ -23,4 +23,12 @@ public class ItemDropSpawner : Spawner
         if (itemDrop == null) Debug.LogWarning(transform.name + ": No Item name " + itemCode.ToString(), transform.gameObject);
         itemDrop.gameObject.SetActive(true);
     }
+
+    public virtual void Drop(ItemInventory itemInventory, Vector2 pos, Quaternion rot)
+    {
+        ItemCode itemCode = itemInventory.ItemDropSO.ItemCode;
+        Transform itemDrop = this.Spawn(itemCode.ToString(), pos, rot);
+        if (itemDrop == null) Debug.LogWarning(transform.name + ": No item name " + itemCode.ToString());
+        itemDrop.gameObject.SetActive(true);
+    }
 }

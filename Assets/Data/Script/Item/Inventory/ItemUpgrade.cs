@@ -15,12 +15,12 @@ public class ItemUpgrade : InventoryAbstract
 
     protected virtual void Test()
     {
-        this.UpgradeItem(0);
+        this.UpgradeItemByIndex(0);
         Debug.Log("Test");
     }
 
     //===========================================public===========================================
-    public virtual bool UpgradeItem(int itemsIndex)
+    public virtual bool UpgradeItemByIndex(int itemsIndex)
     {
         ItemInventory itemInventory = GetItemInventoryByIndex(itemsIndex);
         if (itemInventory == null) return false;

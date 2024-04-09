@@ -160,10 +160,16 @@ public class Inventory : HuyMonoBehaviour
 
     public virtual void RemoveEmptyItemInventory()
     {
+        List<ItemInventory> removeItems = new List<ItemInventory>();
         foreach (ItemInventory itemInventory in this.items)
         {
             if (itemInventory.ItemAmount > 0) continue;
-            this.items.Remove(itemInventory);
+            removeItems.Add(itemInventory);
+        }
+
+        foreach(ItemInventory removeItemInventory in removeItems)
+        {
+            this.items.Remove(removeItemInventory);
         }
     }
 
