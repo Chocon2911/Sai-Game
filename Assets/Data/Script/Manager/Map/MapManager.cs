@@ -2,20 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MapManager : LevelByDistance
+public class MapManager : HuyMonoBehaviour
 {
-    //[Header("MapManager")]
+    [SerializeField] protected MapLevel mapLevel;
+    public MapLevel MapLevel => mapLevel;
 
-    protected override void FixedUpdate()
+    protected override void LoadComponent()
     {
-        this.MapSetTarget();
-        base.FixedUpdate();
+        base.LoadComponent();
+        this.LoadMapLevel();
     }
 
-    //==========================================Get Set===========================================
-    protected virtual void MapSetTarget()
+    //=======================================Load Component=======================================
+    protected virtual void LoadMapLevel()
     {
-        if (this.target != null) return;
-        this.SetTarget(PlayerManager.Instance.CurrShip.transform);
+        if (this.mapLevel != null) return;
+        this.mapLevel = transform.Find("Level").GetComponent<MapLevel>();
+        Debug.Log(transform.name + ": LoadMapLevel", transform.gameObject);
     }
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Level : HuyMonoBehaviour
+public abstract class Level : HuyMonoBehaviour
 {
     [Header("Level")]
     [Header("Stat")]
@@ -19,14 +19,14 @@ public class Level : HuyMonoBehaviour
     }
 
     //============================================Set=============================================
-    public virtual void SetCurrLevel(int currLevel)
+    public virtual void SetCurrLevel(int newCurrLevel)
     {
         if (this.IsLimitLevel())
         {
             Debug.LogError(transform.name + ": Your set Level is too high", transform.gameObject);
             return;
         }
-        this.currLevel = currLevel;
+        this.currLevel = newCurrLevel;
     }
 
     //===========================================Level============================================

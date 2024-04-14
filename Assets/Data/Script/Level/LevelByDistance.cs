@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LevelByDistance : Level
+public abstract class LevelByDistance : Level
 {
     [Header("LevelByDistance")]
     [Header("Other")]
-    [SerializeField] protected Transform target;
+    [SerializeField] protected Transform startTrans;
+    [SerializeField] protected Transform targetTrans;
     [Header("Stat")]
     [SerializeField] protected float distance = 0;
     [SerializeField] protected float distancePerLevel = 10;
@@ -24,15 +25,15 @@ public class LevelByDistance : Level
 
     public virtual void SetTarget(Transform target)
     {
-        this.target = target;
+        this.targetTrans = target;
     }
 
     //===========================================Level============================================
     protected virtual void Leveling()
     {
-        if (this.target == null) return;
+        if (this.targetTrans == null) return;
 
-        this.distance = Vector3.Distance(transform.parent.position, this.target.position);
+        this.distance = Vector3.Distance(startTrans.position, this.targetTrans.position);
         int newLevel = this.GetLevelByDistance();
         this.SetCurrLevel(newLevel);
     }
