@@ -1,13 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(CircleCollider2D))]
 public class WormHole : HuyMonoBehaviour
 {
     [Header("Other")]
     [SerializeField] protected CircleCollider2D bodyCollider;
-
+    [Header("Stat")]
+    [SerializeField] protected string galaxyName = "Galaxy_1";
     protected override void LoadComponent()
     {
         base.LoadComponent();
@@ -19,12 +21,19 @@ public class WormHole : HuyMonoBehaviour
     {
         if (this.bodyCollider != null) return;
         this.bodyCollider = transform.GetComponent<CircleCollider2D>();
+        this.bodyCollider.isTrigger = true;
         Debug.Log(transform.name + ": LoadBodyCollider", transform.gameObject);
     }
 
     //==========================================Interact==========================================
     protected virtual void OnMouseDown()
     {
-        Debug.Log(transform.name + ": You just click Worm Hole", transform.gameObject);
+        this.LoadGalaxy();
+    }
+
+    //===========================================Galaxy===========================================
+    protected virtual void LoadGalaxy()
+    {
+        SceneManager.LoadScene(this.galaxyName);
     }
 }
