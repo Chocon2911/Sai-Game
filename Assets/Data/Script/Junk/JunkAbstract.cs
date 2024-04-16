@@ -4,8 +4,8 @@ using UnityEngine;
 
 public abstract class JunkAbstract : HuyMonoBehaviour
 {
-    [SerializeField] protected JunkObjManager junkObjManager;
-    public JunkObjManager JunkObjManager => junkObjManager;
+    [SerializeField] protected JunkManager junkManager;
+    public JunkManager JunkManager => junkManager;
 
     protected override void LoadComponent()
     {
@@ -15,8 +15,8 @@ public abstract class JunkAbstract : HuyMonoBehaviour
 
     protected virtual void LoadJunkObjManager()
     {
-        if (this.junkObjManager != null) return;
-        this.junkObjManager = transform.parent.GetComponent<JunkObjManager>();
+        if (this.junkManager != null) return;
+        this.junkManager = transform.parent.GetComponent<JunkManager>();
         Debug.Log(transform.name + ": LoadJunkObjManager", transform.gameObject);
     }
 }

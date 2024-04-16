@@ -15,6 +15,6 @@ public class JunkRotate : JunkAbstract
     protected virtual void Rotating()
     {
         Vector3 dir = Vector3.forward;
-        this.junkObjManager.Model.Rotate(dir * this.speed * Time.fixedDeltaTime);
+        this.junkManager.Model.Rotate(dir * this.speed * Time.fixedDeltaTime);
     }
 }

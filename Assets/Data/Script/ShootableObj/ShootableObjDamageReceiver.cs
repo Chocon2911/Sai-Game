@@ -3,48 +3,48 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class JunkDamageReceiver : DamageReceiver
+public class ShootableObjDamageReceiver : DamageReceiver
 {
     [Header("JunkDamageReceiver")]
-    [SerializeField] protected JunkObjManager junkObjManager;
-    public JunkObjManager JunkObjManager => junkObjManager;
+    [SerializeField] protected ShootableObjManager shootableObjManager;
+    public ShootableObjManager ShootableObjManager => shootableObjManager;
 
     
     protected override void LoadComponent()
     {
         base.LoadComponent();
         //Script
-        this.LoadJunkManager();
+        this.LoadShootableObjManager();
         //Stat
         this.DefaultStat();
     }
 
     //=======================================Load Component=======================================
     //Script
-    protected virtual void LoadJunkManager()
+    protected virtual void LoadShootableObjManager()
     {
-        if (this.junkObjManager != null) return;
-        this.junkObjManager = transform.parent.GetComponent<JunkObjManager>();
-        Debug.Log(transform.name + ": LoadJunkManager", transform.gameObject);
+        if (this.shootableObjManager != null) return;
+        this.shootableObjManager = transform.parent.GetComponent<ShootableObjManager>();
+        Debug.Log(transform.name + ": LoadShootableObjManager", transform.gameObject);
     }
 
     //Stat
     protected virtual void DefaultStat()
     {
-        if (this.junkObjManager.JunkSO == null)
+        if (this.shootableObjManager.ShootableObjSO == null)
         {
-            Debug.LogError(transform.name + ": No JunkSO", transform.gameObject);
+            Debug.LogError(transform.name + ": No ShootableObjSO", transform.gameObject);
             return;
         }
 
-        this.maxHealth = this.junkObjManager.JunkSO.MaxHealth;
+        this.maxHealth = this.shootableObjManager.ShootableObjSO.MaxHealth;
     }
 
     //============================================Dead============================================
     protected override void OnDead()
     {
         //base.OnDead();
-        this.junkObjManager.JunkDespawn.DespawnObject();
+        this.shootableObjManager.Despawner.DespawnObject();
         this.OnDeadFX();
         this.DropOnDead();
     }
@@ -64,6 +64,6 @@ public class JunkDamageReceiver : DamageReceiver
     {
         Vector2 dropPos = transform.parent.position;
         Quaternion dropRot = transform.parent.rotation;
-        ItemDropSpawner.Instance.Drop(this.JunkObjManager.JunkSO.DropList, dropPos, dropRot);
+        ItemDropSpawner.Instance.Drop(this.shootableObjManager.ShootableObjSO.DropList, dropPos, dropRot);
     }
 }
