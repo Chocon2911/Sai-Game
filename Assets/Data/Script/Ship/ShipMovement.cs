@@ -39,6 +39,7 @@ public abstract class ShipMovement : HuyMonoBehaviour
     {
         if (this.currDistance <= this.minDistance) return;
         Vector3 newPos = Vector3.Lerp(transform.parent.position, targetPos, this.speed * Time.fixedDeltaTime);
-        transform.parent.position = newPos;
+
+        transform.parent.position = newPos - new Vector3(0, 0, newPos.z);
     }
 }

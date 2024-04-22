@@ -14,7 +14,7 @@ public class SpawnPoints : HuyMonoBehaviour
 
     protected override void Awake()
     {
-        if (instance != this)
+        if (instance != null)
         {
             Debug.LogError(transform.name + ": One SpawnPoints exists Only", transform.gameObject);
             return;
