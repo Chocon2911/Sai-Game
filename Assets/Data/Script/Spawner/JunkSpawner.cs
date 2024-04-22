@@ -5,8 +5,8 @@ using UnityEngine;
 public class JunkSpawner : Spawner
 {
     [Header("JunkSpawner")]
-    private static JunkSpawner instance;
-    public static JunkSpawner Instance => instance;
+    private static Spawner instance;
+    public static Spawner Instance => instance;
 
     protected string junkOne = "Junk_1";
     public string JunkOne => junkOne;

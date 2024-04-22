@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class JunkSpawnerRandom : HuyMonoBehaviour
+public class SpawnRandom : HuyMonoBehaviour
 {
-    [SerializeField] protected JunkSpawnerManager junkManager;
-    public JunkSpawnerManager JunkManager => junkManager;
+    [SerializeField] protected SpawnManager spawnManager;
+    public SpawnManager SpawnManager => spawnManager;
 
     [Header("Stat")]
     [SerializeField] protected float randomCooldown = 1;
@@ -28,15 +28,15 @@ public class JunkSpawnerRandom : HuyMonoBehaviour
     protected override void LoadComponent()
     {
         base.LoadComponent();
-        this.LoadJunkManager();
+        this.LoadSpawnManager();
     }
 
     //===================================Load Component===========================================
-    protected virtual void LoadJunkManager()
+    protected virtual void LoadSpawnManager()
     {
-        if (this.junkManager != null) return;
-        this.junkManager = transform.GetComponent<JunkSpawnerManager>();
-        Debug.Log(transform.name + ": LoadJunkManager", transform.gameObject);
+        if (this.spawnManager != null) return;
+        this.spawnManager = transform.GetComponent<SpawnManager>();
+        Debug.Log(transform.name + ": LoadSpawnManager", transform.gameObject);
     }
 
     //=======================================Spawn================================================
@@ -44,11 +44,11 @@ public class JunkSpawnerRandom : HuyMonoBehaviour
     {
         if (!this.canSpawn) return;
         this.canSpawn = false;
-        Vector3 pos = this.junkManager.JunkSpawnPoints.GetRandom().position;
-        Quaternion rot = this.junkManager.JunkSpawnPoints.GetRandom().rotation;
-        string prefabName = JunkSpawner.Instance.RandomPrefab().name;
+        Vector3 pos = SpawnPoints.Instance.GetRandom().position;
+        Quaternion rot = SpawnPoints.Instance.GetRandom().rotation;
+        string prefabName = this.spawnManager.Spawner.RandomPrefab().name;
 
-        Transform prefab = this.junkManager.JunkSpawner.Spawn(prefabName, pos, rot);
+        Transform prefab = this.spawnManager.Spawner.Spawn(prefabName, pos, rot);
         prefab.gameObject.SetActive(true);
         //Debug.Log(transform.name + ": Spawn Junk", transform.gameObject);
         //Invoke(nameof(this.JunkSpawning), 1f);
@@ -76,7 +76,7 @@ public class JunkSpawnerRandom : HuyMonoBehaviour
 
     protected virtual bool IsRandomReachLimit()
     {
-        if (this.randomLimit >= this.junkManager.JunkSpawner.SpawnCount) return true;
+        if (this.randomLimit >= this.spawnManager.Spawner.SpawnCount) return true;
         return false;
     }
 

@@ -14,7 +14,7 @@ public class EnemyDespawn : DespawnByDistance
     //=======================================Despawn==============================================
     public override void DespawnObject()
     {
-        JunkSpawner.Instance.Despawn(transform.parent);
+        EnemySpawner.Instance.Despawn(transform.parent);
         //Debug.Log(transform.name + ": Despawn Object", transform.gameObject);
     }
 }

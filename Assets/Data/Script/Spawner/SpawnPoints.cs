@@ -3,9 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public abstract class SpawnPoints : HuyMonoBehaviour
+public class SpawnPoints : HuyMonoBehaviour
 {
+    [Header("SpawnPoints")]
+    private static SpawnPoints instance;
+    public static SpawnPoints Instance => instance;
+
+    [Header("Other")]
     [SerializeField] protected List<Transform> spawnPoints;
+
+    protected override void Awake()
+    {
+        if (instance != this)
+        {
+            Debug.LogError(transform.name + ": One SpawnPoints exists Only", transform.gameObject);
+            return;
+        }
+
+        instance = this;
+        base.Awake();
+    }
 
     protected override void LoadComponent()
     {

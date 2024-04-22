@@ -2,24 +2,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShipMovement : MonoBehaviour
+public abstract class ShipMovement : HuyMonoBehaviour
 {
+    [Header("ShipMovement")]
     [SerializeField] protected Vector3 targetPos;
     [SerializeField] protected float speed = 1f;
+    [SerializeField] protected float minDistance = 0f;
+    [SerializeField] protected float currDistance;
 
-    private void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
-        this.GetTargetPos(InputManager.Instance.MousePos);
+        this.GetTargetPos();
+        this.GetCurrDistance();
         this.LookAtTarget();
         this.Moving();
     }
 
-    protected virtual void GetTargetPos(Vector3 pos)
+    //============================================Get=============================================
+    protected abstract void GetTargetPos();
+
+    protected virtual void GetCurrDistance()
     {
-        this.targetPos = pos;
-        this.targetPos.z = 0f;
+        this.currDistance = Vector2.Distance(transform.parent.position, this.targetPos);
     }
 
+    //==========================================Movement==========================================
     protected virtual void LookAtTarget()
     {
         Vector3 dir = this.targetPos - transform.parent.position;
@@ -30,7 +37,7 @@ public class ShipMovement : MonoBehaviour
 
     protected virtual void Moving()
     {
-        if (InputManager.Instance.IsIdle) return;
+        if (this.currDistance <= this.minDistance) return;
         Vector3 newPos = Vector3.Lerp(transform.parent.position, targetPos, this.speed * Time.fixedDeltaTime);
         transform.parent.position = newPos;
     }
