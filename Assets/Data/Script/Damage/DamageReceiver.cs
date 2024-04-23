@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(CapsuleCollider2D))]
-public class DamageReceiver : HuyMonoBehaviour
+public abstract class DamageReceiver : HuyMonoBehaviour
 {
     [Header("Damage Receiver")]
     [SerializeField] protected CapsuleCollider2D bodyCol;
@@ -74,8 +74,5 @@ public class DamageReceiver : HuyMonoBehaviour
         this.OnDead();
     }
 
-    protected virtual void OnDead()
-    {
-        //For Override
-    }
+    protected abstract void OnDead();
 }

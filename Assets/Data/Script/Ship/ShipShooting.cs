@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShipShooting : HuyMonoBehaviour
+public abstract class ShipShooting : HuyMonoBehaviour
 {
+    [Header("Ship Shooting")]
     [SerializeField] protected Transform bulletObj;
     [SerializeField] protected float shootDelay = 1f;
     [SerializeField] protected float shootTimer = 0f;
@@ -17,11 +18,8 @@ public class ShipShooting : HuyMonoBehaviour
         this.Shooting();
     }
 
-    protected virtual bool IsShooting()
-    {
-        this.isShooting = InputManager.Instance.IsFiring;
-        return this.isShooting;
-    }
+    //==========================================Checker===========================================
+    protected abstract bool IsShooting();
 
     protected virtual bool IsReloaded()
     {
@@ -30,6 +28,7 @@ public class ShipShooting : HuyMonoBehaviour
         return this.isReloaded;
     }
 
+    //===========================================Shoot============================================
     protected virtual void Shooting()
     {
         if (!this.IsShooting() || !this.IsReloaded()) return;

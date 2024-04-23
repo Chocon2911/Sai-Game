@@ -19,6 +19,9 @@ public class ShipManager : HuyMonoBehaviour
     [SerializeField] protected Inventory inventory;
     public Inventory Inventory => inventory;
 
+    [SerializeField] protected ShipDamageReceiver shipDamageReceiver;
+    public ShipDamageReceiver ShipDamageReceiver => shipDamageReceiver;
+
     protected override void LoadComponent()
     {
         base.LoadComponent();
@@ -28,6 +31,7 @@ public class ShipManager : HuyMonoBehaviour
         this.LoadShipMovement();
         this.LoadShipShooting();
         this.LoadInventory();
+        this.LoadShipDamageReceiver();
     }
 
     //=========================================Load Component=====================================
@@ -59,6 +63,13 @@ public class ShipManager : HuyMonoBehaviour
         if (this.inventory != null) return;
         this.inventory = transform.Find("Inventory").GetComponent<Inventory>();
         Debug.Log(transform.name + ": LoadInventory", transform.gameObject);
+    }
+
+    protected virtual void LoadShipDamageReceiver()
+    {
+        if (this.shipDamageReceiver != null) return;
+        this.shipDamageReceiver = transform.Find("DamageReceiver").GetComponent<ShipDamageReceiver>();
+        Debug.Log(transform.name + ": LoadShipDamageReceiver", transform.gameObject);
     }
 }
  

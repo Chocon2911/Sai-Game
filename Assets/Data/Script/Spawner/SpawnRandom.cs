@@ -22,7 +22,7 @@ public class SpawnRandom : HuyMonoBehaviour
     protected virtual void FixedUpdate()
     {
         this.CheckCanSpawn();
-        this.JunkSpawning();
+        this.ObjSpawning();
     }
 
     protected override void LoadComponent()
@@ -40,7 +40,7 @@ public class SpawnRandom : HuyMonoBehaviour
     }
 
     //=======================================Spawn================================================
-    protected virtual void JunkSpawning()
+    protected virtual void ObjSpawning()
     {
         if (!this.canSpawn) return;
         this.canSpawn = false;
@@ -76,7 +76,7 @@ public class SpawnRandom : HuyMonoBehaviour
 
     protected virtual bool IsRandomReachLimit()
     {
-        if (this.randomLimit >= this.spawnManager.Spawner.SpawnCount) return true;
+        if (this.spawnManager.Spawner.SpawnCount < this.randomLimit) return true;
         return false;
     }
 
