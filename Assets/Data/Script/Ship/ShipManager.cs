@@ -10,11 +10,11 @@ public class ShipManager : HuyMonoBehaviour
     public Transform Model => model;
 
     [Header("Script")]
-    [SerializeField] protected ShipMovement shipMovement;
-    public ShipMovement ShipMovement => shipMovement;
+    [SerializeField] protected ObjMovement shipMovement;
+    public ObjMovement ShipMovement => shipMovement;
 
-    [SerializeField] protected ShipShooting shipShooting;
-    public ShipShooting ShipShooting => shipShooting;
+    [SerializeField] protected ObjShooting shipShooting;
+    public ObjShooting ShipShooting => shipShooting;
 
     [SerializeField] protected Inventory inventory;
     public Inventory Inventory => inventory;
@@ -47,14 +47,14 @@ public class ShipManager : HuyMonoBehaviour
     protected virtual void LoadShipMovement()
     {
         if (this.shipMovement != null) return;
-        this.shipMovement = transform.Find("ShipMovement").GetComponent<ShipMovement>();
+        this.shipMovement = transform.Find("ShipMovement").GetComponent<ObjMovement>();
         Debug.Log(transform.name + ": LoadShipMovement", transform.gameObject);
     }
 
     protected virtual void LoadShipShooting()
     {
         if (this.shipShooting != null) return;
-        this.shipShooting = transform.Find("ShipShooting").GetComponent<ShipShooting>();
+        this.shipShooting = transform.Find("ShipShooting").GetComponent<ObjShooting>();
         Debug.Log(transform.name + ": LoadShipShooting", transform.gameObject);
     }
 

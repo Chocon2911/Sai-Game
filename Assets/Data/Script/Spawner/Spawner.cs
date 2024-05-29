@@ -49,7 +49,7 @@ public abstract class Spawner : HuyMonoBehaviour
         Transform holderTrans = transform.Find("Holder");
         if (holderTrans == null) 
         { 
-            Debug.LogWarning(transform.name + ": No Holder Object", transform.gameObject);
+            Debug.LogError(transform.name + ": No Holder Object", transform.gameObject);
             return;
         }
 
@@ -57,6 +57,9 @@ public abstract class Spawner : HuyMonoBehaviour
         {
             this.holders.Add(obj);
         }
+
+        if (this.holders.Count <= 0) return;
+
         Debug.Log(transform.name + ": LoadHolders", transform.gameObject);
     }
 

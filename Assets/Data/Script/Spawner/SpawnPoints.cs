@@ -6,23 +6,8 @@ using UnityEngine.UIElements;
 public class SpawnPoints : HuyMonoBehaviour
 {
     [Header("SpawnPoints")]
-    private static SpawnPoints instance;
-    public static SpawnPoints Instance => instance;
-
     [Header("Other")]
     [SerializeField] protected List<Transform> spawnPoints;
-
-    protected override void Awake()
-    {
-        if (instance != null)
-        {
-            Debug.LogError(transform.name + ": One SpawnPoints exists Only", transform.gameObject);
-            return;
-        }
-
-        instance = this;
-        base.Awake();
-    }
 
     protected override void LoadComponent()
     {
@@ -35,7 +20,11 @@ public class SpawnPoints : HuyMonoBehaviour
     {
         if (this.spawnPoints.Count > 0) return;
         Transform spawnPointTrans = transform;
+
         foreach (Transform point in spawnPointTrans) this.spawnPoints.Add(point);
+
+        if (this.spawnPoints.Count <= 0) return;
+
         Debug.Log(transform.name + ": LoadSpawnPoints", transform.gameObject);
     }
 

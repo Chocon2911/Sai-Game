@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SpawnRandom : HuyMonoBehaviour
 {
+    [Header("Script")]
     [SerializeField] protected SpawnManager spawnManager;
     public SpawnManager SpawnManager => spawnManager;
 
@@ -36,7 +37,7 @@ public class SpawnRandom : HuyMonoBehaviour
     {
         if (this.spawnManager != null) return;
         this.spawnManager = transform.GetComponent<SpawnManager>();
-        Debug.Log(transform.name + ": LoadSpawnManager", transform.gameObject);
+        Debug.LogWarning(transform.name + ": LoadSpawnManager", transform.gameObject);
     }
 
     //=======================================Spawn================================================
@@ -44,8 +45,8 @@ public class SpawnRandom : HuyMonoBehaviour
     {
         if (!this.canSpawn) return;
         this.canSpawn = false;
-        Vector3 pos = SpawnPoints.Instance.GetRandom().position;
-        Quaternion rot = SpawnPoints.Instance.GetRandom().rotation;
+        Vector3 pos = this.spawnManager.SpawnPoints.GetRandom().position;
+        Quaternion rot = this.spawnManager.SpawnPoints.GetRandom().rotation;
         string prefabName = this.spawnManager.Spawner.RandomPrefab().name;
 
         Transform prefab = this.spawnManager.Spawner.Spawn(prefabName, pos, rot);

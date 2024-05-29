@@ -25,7 +25,7 @@ public class ShootableObjDamageReceiver : DamageReceiver
     {
         if (this.shootableObjManager != null) return;
         this.shootableObjManager = transform.parent.GetComponent<ShootableObjManager>();
-        Debug.Log(transform.name + ": LoadShootableObjManager", transform.gameObject);
+        Debug.LogWarning(transform.name + ": LoadShootableObjManager", transform.gameObject);
     }
 
     //Stat

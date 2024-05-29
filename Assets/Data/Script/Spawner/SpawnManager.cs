@@ -10,11 +10,15 @@ public class SpawnManager : HuyMonoBehaviour
     [SerializeField] protected SpawnRandom spawnRandom;
     public SpawnRandom SpawnRandom => spawnRandom;
 
+    [SerializeField] protected SpawnPoints spawnPoints;
+    public SpawnPoints SpawnPoints => spawnPoints;
+
     protected override void LoadComponent()
     {
         base.LoadComponent();
         this.LoadJunkSpawner();
         this.LoadSpawnRandom();
+        this.LoadSpawnPoints();
     }
 
     //======================================Load Component=========================================
@@ -30,5 +34,13 @@ public class SpawnManager : HuyMonoBehaviour
         if (this.spawnRandom != null) return;
         this.spawnRandom = transform.GetComponent<SpawnRandom>();
         Debug.Log(transform.name + ": LoadJunkRandom", transform.gameObject);
+    }
+
+    protected virtual void LoadSpawnPoints()
+    {
+        if (this.spawnPoints != null) return;
+        GameObject spawnPointsTrans = GameObject.Find("SpawnPoints");
+        this.spawnPoints = spawnPointsTrans.GetComponent<SpawnPoints>();
+        Debug.LogWarning(transform.name + ": LoadSpawnPoints", transform.gameObject);
     }
 }
