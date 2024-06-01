@@ -47,28 +47,28 @@ public class ShipManager : HuyMonoBehaviour
     protected virtual void LoadShipMovement()
     {
         if (this.shipMovement != null) return;
-        this.shipMovement = transform.Find("ShipMovement").GetComponent<ObjMovement>();
+        this.shipMovement = GetComponentInChildren<ObjMovement>();
         Debug.Log(transform.name + ": LoadShipMovement", transform.gameObject);
     }
 
     protected virtual void LoadShipShooting()
     {
         if (this.shipShooting != null) return;
-        this.shipShooting = transform.Find("ShipShooting").GetComponent<ObjShooting>();
+        this.shipShooting = GetComponentInChildren<ObjShooting>();
         Debug.Log(transform.name + ": LoadShipShooting", transform.gameObject);
     }
 
     protected virtual void LoadInventory()
     {
         if (this.inventory != null) return;
-        this.inventory = transform.Find("Inventory").GetComponent<Inventory>();
+        this.inventory = GetComponentInChildren<Inventory>();
         Debug.Log(transform.name + ": LoadInventory", transform.gameObject);
     }
 
     protected virtual void LoadShipDamageReceiver()
     {
         if (this.shipDamageReceiver != null) return;
-        this.shipDamageReceiver = transform.Find("DamageReceiver").GetComponent<ShipDamageReceiver>();
+        this.shipDamageReceiver = GetComponentInChildren<ShipDamageReceiver>();
         Debug.Log(transform.name + ": LoadShipDamageReceiver", transform.gameObject);
     }
 }

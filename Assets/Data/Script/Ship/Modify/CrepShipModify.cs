@@ -5,8 +5,8 @@ using UnityEngine;
 public class CrepShipModify : EnemyModifyAbstract
 {
     [Header("Crep Ship")]
-    [SerializeField] protected float moveSpeed = 0.5f;
-    [SerializeField] protected float rotSpeed = 2f;
+    [SerializeField] protected float moveSpeed = 1f;
+    [SerializeField] protected float rotSpeed = 0.5f;
 
     protected virtual void Start()
     {

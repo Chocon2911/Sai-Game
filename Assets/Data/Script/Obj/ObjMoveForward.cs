@@ -2,13 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class ObjMoveForward : ObjMovement
+public class ObjMoveForward : ObjMovement
 {
     [SerializeField] protected Transform moveTarget;
 
     protected override void FixedUpdate()
     {
-        this.GetMousePos();
         base.FixedUpdate();
     }
 
@@ -27,8 +26,9 @@ public abstract class ObjMoveForward : ObjMovement
     }
 
     //============================================Get=============================================
-    protected virtual void GetMousePos()
+    protected override void GetTargetPos()
     {
+        if (this.moveTarget == null) return;
         this.targetPos = this.moveTarget.position;
         this.targetPos.z = 0;
     }

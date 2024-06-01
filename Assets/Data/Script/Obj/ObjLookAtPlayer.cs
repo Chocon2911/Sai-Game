@@ -5,7 +5,7 @@ using UnityEngine;
 public class ObjLookAtPlayer : ObjLookAtTarget
 {
     [Header("Obj Look At Player")]
-    [SerializeField] protected Transform player;
+    [SerializeField] protected Transform player; // Sai uses GameObject but i use Transform 
 
     protected override void LoadComponent()
     {

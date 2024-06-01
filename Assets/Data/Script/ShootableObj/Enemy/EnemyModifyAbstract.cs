@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyModifyAbstract : HuyMonoBehaviour
+public abstract class EnemyModifyAbstract : HuyMonoBehaviour
 {
     [SerializeField] protected EnemyManager enemyManager;
     public EnemyManager EnemyManager => enemyManager;

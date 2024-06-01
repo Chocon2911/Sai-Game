@@ -382,7 +382,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilitites: {fileID: 495033170}
   timer: 0
-  delay: 10
+  delay: 5
   isReady: 0
   spawner: {fileID: 1015177788}
 --- !u!1 &190027809
@@ -496,7 +496,7 @@ Transform:
   m_GameObject: {fileID: 209929296}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4, y: 0, z: 0}
+  m_LocalPosition: {x: 7, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -852,7 +852,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetPos: {x: 0, y: 0, z: 0}
-  rotSpeed: 1
+  rotSpeed: 0
   player: {fileID: 742465541}
 --- !u!1 &360785447
 GameObject:
@@ -1177,7 +1177,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyManager: {fileID: 554734732}
   moveSpeed: 0.5
-  rotSpeed: 2
+  rotSpeed: 1
 --- !u!1 &561919669
 GameObject:
   m_ObjectHideFlags: 0
@@ -2725,7 +2725,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletObj: {fileID: 2126468269}
-  shootDelay: 1
+  shootDelay: 0.5
   shootTimer: 0
   isShooting: 0
   isReloaded: 0
@@ -2982,7 +2982,7 @@ Transform:
   m_GameObject: {fileID: 1043861248}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4, y: 0, z: 0}
+  m_LocalPosition: {x: 2, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3172,7 +3172,7 @@ Transform:
   m_GameObject: {fileID: 1155764043}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -1, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3188,12 +3188,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1155764043}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb6788c63e2e7a44fac9c75e474a2822, type: 3}
+  m_Script: {fileID: 11500000, guid: c0eb2cb96161f324f828cd46ac26de00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   targetPos: {x: 0, y: 0, z: 0}
-  speed: 2
-  minDistance: 0
+  speed: 0.5
+  minDistance: 1
   currDistance: 0
   moveTarget: {fileID: 209929297}
 --- !u!1 &1190158525
@@ -5406,7 +5406,7 @@ Transform:
   m_GameObject: {fileID: 2039935351}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -1, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5422,7 +5422,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2039935351}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98e09e177a485cc41ae12b9bc2a44895, type: 3}
+  m_Script: {fileID: 11500000, guid: c0eb2cb96161f324f828cd46ac26de00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   targetPos: {x: 0, y: 0, z: 0}
@@ -5430,7 +5430,6 @@ MonoBehaviour:
   minDistance: 0
   currDistance: 0
   moveTarget: {fileID: 1043861249}
-  target: {fileID: 0}
 --- !u!1 &2054552925
 GameObject:
   m_ObjectHideFlags: 0
@@ -5473,15 +5472,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 2054552925}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98e09e177a485cc41ae12b9bc2a44895, type: 3}
+  m_Script: {fileID: 11500000, guid: c0eb2cb96161f324f828cd46ac26de00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   targetPos: {x: 0, y: 0, z: 0}
-  speed: 0.1
+  speed: 1
   minDistance: 0
   currDistance: 0
   moveTarget: {fileID: 2081241107}
-  target: {fileID: 0}
 --- !u!1 &2081241106
 GameObject:
   m_ObjectHideFlags: 0

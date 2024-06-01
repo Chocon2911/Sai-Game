@@ -45,7 +45,6 @@ public class EnemyManager : AbilityObjManager
     {
         if (this.objAppear != null) return;
         this.objAppear = GetComponentInChildren<ObjAppear>();
-        if (this.objAppear != null) return;
         Debug.LogWarning(transform.name + ": LoadObjAppear", transform.gameObject);
     }
 
