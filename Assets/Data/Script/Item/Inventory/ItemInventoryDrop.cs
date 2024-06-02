@@ -22,7 +22,7 @@ public class ItemInventoryDrop : InventoryAbstract
 
         ItemInventory itemInventory = this.inventory.Items[itemIndex];
 
-        ItemDropSpawner.Instance.Drop(itemInventory, dropPos, dropRot);
+        ItemDropSpawner.Instance.DropFromInventory(itemInventory, dropPos, dropRot);
         this.inventory.Items.Remove(itemInventory);
         this.inventory.RemoveEmptyItemInventory();
     }

@@ -18,4 +18,12 @@ public class AbilitySummonEnemy : AbilitySummon
         this.spawner = enemySpawner.GetComponent<EnemySpawner>();
         Debug.LogWarning(transform.name + ": LoadEnemySpawner", transform.gameObject);
     }
+
+    //=======================================Ability Summon=======================================
+    protected override Transform Summon()
+    {
+        Transform newEnemy = base.Summon();
+        newEnemy.parent = this.abilitites.transform;
+        return newEnemy;
+    }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class ShipDamageReceiver : DamageReceiver
+public class ShipDamageReceiver : ShootableObjDamageReceiver
 {
     //=======================================DamageReceiver=======================================
     protected override void OnDead()

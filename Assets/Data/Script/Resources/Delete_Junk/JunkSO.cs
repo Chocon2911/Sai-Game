@@ -8,5 +8,5 @@ public class JunkSO : ScriptableObject
 {
     public string JunkName = "Junk";
     public float MaxHealth = 2;
-    public List<DropRate> DropList = new List<DropRate>();
+    public List<ItemDropRate> DropList = new List<ItemDropRate>();
 }

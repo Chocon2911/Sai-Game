@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public class DropRate
+public class ItemDropRate
 {
     public ItemDropSO ItemDropSO;
-    public int ItemDropRate;
-    public int minDrop;
-    public int maxDrop;
+    public int DropRate;
+    public int MinDrop;
+    public int MaxDrop;
 }

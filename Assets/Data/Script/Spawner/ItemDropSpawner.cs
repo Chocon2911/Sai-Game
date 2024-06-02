@@ -16,7 +16,7 @@ public class ItemDropSpawner : Spawner
     }
 
     //==========================================ItemDrop==========================================
-    public virtual void Drop(List<DropRate> dropList, Vector2 pos, Quaternion rot)
+    public virtual void DropItem(List<ItemDropRate> dropList, Vector2 pos, Quaternion rot)
     {
         //TODO: Drop with rate
         if (dropList.Count <= 0) return;
@@ -27,7 +27,7 @@ public class ItemDropSpawner : Spawner
         itemDrop.gameObject.SetActive(true);
     }
 
-    public virtual void Drop(ItemInventory itemInventory, Vector2 pos, Quaternion rot)
+    public virtual void DropFromInventory(ItemInventory itemInventory, Vector2 pos, Quaternion rot)
     {
         ItemCode itemCode = itemInventory.ItemDropSO.ItemCode;
         Transform itemDrop = this.Spawn(itemCode.ToString(), pos, rot);
@@ -37,5 +37,11 @@ public class ItemDropSpawner : Spawner
         itemDropManager.SetItemInventory(itemInventory);
         itemDrop.gameObject.SetActive(true);
 
+    }
+
+    //=========================================Drop Rate==========================================
+    protected virtual List<ItemDropRate> DropItemByRate()
+    {
+        return null;
     }
 }

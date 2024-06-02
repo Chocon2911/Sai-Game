@@ -2,12 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShipManager : HuyMonoBehaviour
+public class ShipManager : AbilityObjManager
 {
     [Header("ShipManager")]
-    [Header("Other")]
-    [SerializeField] protected Transform model;
-    public Transform Model => model;
 
     [Header("Script")]
     [SerializeField] protected ObjMovement shipMovement;
@@ -19,9 +16,6 @@ public class ShipManager : HuyMonoBehaviour
     [SerializeField] protected Inventory inventory;
     public Inventory Inventory => inventory;
 
-    [SerializeField] protected ShipDamageReceiver shipDamageReceiver;
-    public ShipDamageReceiver ShipDamageReceiver => shipDamageReceiver;
-
     protected override void LoadComponent()
     {
         base.LoadComponent();
@@ -31,18 +25,9 @@ public class ShipManager : HuyMonoBehaviour
         this.LoadShipMovement();
         this.LoadShipShooting();
         this.LoadInventory();
-        this.LoadShipDamageReceiver();
     }
 
     //=========================================Load Component=====================================
-    //Other
-    protected virtual void LoadModel()
-    {
-        if (this.model != null) return;
-        this.model = transform.Find("Model");
-        Debug.Log(transform.name + ": LoadModel", transform.gameObject);
-    }
-
     //Script
     protected virtual void LoadShipMovement()
     {
@@ -65,11 +50,9 @@ public class ShipManager : HuyMonoBehaviour
         Debug.Log(transform.name + ": LoadInventory", transform.gameObject);
     }
 
-    protected virtual void LoadShipDamageReceiver()
+    //====================================ShootableObjManager=====================================
+    protected override string GetShootableObjTypeStr()
     {
-        if (this.shipDamageReceiver != null) return;
-        this.shipDamageReceiver = GetComponentInChildren<ShipDamageReceiver>();
-        Debug.Log(transform.name + ": LoadShipDamageReceiver", transform.gameObject);
+        return ShootableObjType.Ship.ToString();
     }
 }
- 

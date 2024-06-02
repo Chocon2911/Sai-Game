@@ -17,6 +17,9 @@ public class EnemyManager : AbilityObjManager
     [SerializeField] protected ObjLookAtTarget objLookAtTarget;
     public ObjLookAtTarget ObjLookAtTarget => objLookAtTarget;
 
+    [SerializeField] protected Spawner spawner;
+    public Spawner Spawner => spawner;
+
     protected override void LoadComponent()
     {
         base.LoadComponent();
@@ -24,6 +27,7 @@ public class EnemyManager : AbilityObjManager
         this.LoadObjMovement();
         this.LoadObjAppear();
         this.LoadObjLookAtTarget();
+        this.LoadSpawner();
     }
 
     //========================================Load Component=======================================
@@ -44,7 +48,7 @@ public class EnemyManager : AbilityObjManager
     protected virtual void LoadObjAppear()
     {
         if (this.objAppear != null) return;
-        this.objAppear = GetComponentInChildren<ObjAppear>();
+        this.objAppear = transform?.GetComponentInChildren<ObjAppear>();
         Debug.LogWarning(transform.name + ": LoadObjAppear", transform.gameObject);
     }
 
@@ -53,6 +57,13 @@ public class EnemyManager : AbilityObjManager
         if (this.ObjLookAtTarget != null) return;
         this.objLookAtTarget = GetComponentInChildren<ObjLookAtTarget>();
         Debug.LogWarning(transform.name + ": LoadObjLookAtTarget", transform.gameObject);
+    }
+
+    protected virtual void LoadSpawner()
+    {
+        if (this.spawner != null) return;
+        this.spawner = transform.parent?.parent.GetComponent<Spawner>();
+        Debug.LogWarning(transform.name + ":LoadSpawner", transform.gameObject);
     }
 
     //===================================Shootable Obj Manager====================================

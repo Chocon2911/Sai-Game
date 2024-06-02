@@ -55,6 +55,6 @@ public class ObjAppearBiggerByTime : ObjAppear
         this.currScale = beginScale;
         this.endScale = 1;
         this.appearDuration = 0;
-        this.appearDuration = 1;
+        this.appearDuration = 2;
     }
 }

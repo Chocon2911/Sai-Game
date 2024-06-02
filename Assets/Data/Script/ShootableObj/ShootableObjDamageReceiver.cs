@@ -64,6 +64,6 @@ public class ShootableObjDamageReceiver : DamageReceiver
     {
         Vector2 dropPos = transform.parent.position;
         Quaternion dropRot = transform.parent.rotation;
-        ItemDropSpawner.Instance.Drop(this.shootableObjManager.ShootableObjSO.DropList, dropPos, dropRot);
+        ItemDropSpawner.Instance.DropItem(this.shootableObjManager.ShootableObjSO.DropList, dropPos, dropRot);
     }
 }

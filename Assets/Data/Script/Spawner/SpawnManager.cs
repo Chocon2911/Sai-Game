@@ -39,7 +39,7 @@ public class SpawnManager : HuyMonoBehaviour
     protected virtual void LoadSpawnPoints()
     {
         if (this.spawnPoints != null) return;
-        GameObject spawnPointsTrans = GameObject.Find("SpawnPoints");
+        GameObject spawnPointsTrans = GameObject.Find("SceneSpawnPoints");
         this.spawnPoints = spawnPointsTrans.GetComponent<SpawnPoints>();
         Debug.LogWarning(transform.name + ": LoadSpawnPoints", transform.gameObject);
     }

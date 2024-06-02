@@ -101,12 +101,16 @@ public abstract class Spawner : HuyMonoBehaviour
 
     public virtual void Despawn(Transform obj)
     {
-
         this.holders.Add(obj);
         obj.gameObject.SetActive(false);
         this.spawnCount--;
     }
-    
+
+    public virtual void HoldObj(Transform obj)
+    {
+        obj.parent = this.holderTrans;
+    }
+
     //=================================Other Func==================================================
     protected virtual void HidePrefabs()
     {

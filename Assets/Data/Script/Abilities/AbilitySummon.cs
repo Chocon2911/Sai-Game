@@ -6,10 +6,13 @@ public class AbilitySummon : BaseAbility
 {
     [Header("Ability Summon")]
     [SerializeField] protected Spawner spawner;
+    [SerializeField] protected List<Transform> minions;
+    [SerializeField] protected int minionLimit;
 
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
+        this.ClearDeadMinion();
         this.Summoning();
     }
 
@@ -17,16 +20,41 @@ public class AbilitySummon : BaseAbility
     protected virtual void Summoning()
     {
         if (!this.isReady) return;
-        this.Spawn();
+        if (this.IsMinionLimitReached()) return;
+        this.Summon();
         this.Active();
     }
 
-    protected virtual void Spawn()
+    protected virtual Transform Summon()
     {
         Transform newPrefab = this.spawner.Spawn(this.GetSpawnObjName(), this.GetSpawnPos(), this.GetSpawnRot());
 
-        if (newPrefab == null) return;
+        if (newPrefab == null) return newPrefab;
+
+        this.minions.Add(newPrefab);
         newPrefab.gameObject.SetActive(true);
+        return newPrefab;
+    }
+
+    //==========================================Checker===========================================
+    protected virtual bool IsMinionLimitReached()
+    {
+        return minionLimit <= this.minions.Count;
+    }
+
+    //========================================Dead Minion=========================================
+    protected virtual void ClearDeadMinion()
+    {
+        if (this.minions.Count <= 0) return;
+
+        foreach (Transform minion in this.minions)
+        {
+            if (!minion.gameObject.activeSelf)
+            {
+                this.minions.Remove(minion);
+                return;
+            }
+        }
     }
 
     //==========================================Get Set===========================================

@@ -23,11 +23,14 @@ public class ObjAppearWithoutShoot : EnemyAbstract, IObjAppearObserver
     public void OnAppearStart()
     {
         this.enemyManager.ObjShooting.gameObject.SetActive(false);
+        this.enemyManager.ObjLookAtTarget.gameObject.SetActive(false);
     }
 
     public void OnAppearEnd()
     {
         this.enemyManager.ObjShooting.gameObject.SetActive(true);
+        this.enemyManager.ObjLookAtTarget.gameObject.SetActive(true);
+        this.enemyManager.Spawner.HoldObj(enemyManager.transform);
     }
 
     //========================================Appear Event========================================

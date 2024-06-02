@@ -20,6 +20,9 @@ public abstract class ShootableObjManager : HuyMonoBehaviour
     [SerializeField] protected ShootableObjDamageReceiver shootableObjDamageReceiver;
     public ShootableObjDamageReceiver ShootableObjDamageReceiver => shootableObjDamageReceiver;
 
+    //[SerializeField] protected Spawner spawner;
+    //public Spawner Spawner => spawner;
+
     protected override void LoadComponent()
     {
         base.LoadComponent();
@@ -62,6 +65,13 @@ public abstract class ShootableObjManager : HuyMonoBehaviour
         this.shootableObjDamageReceiver = transform.Find("DamageReceiver").GetComponent<ShootableObjDamageReceiver>();
         Debug.Log(transform.name + ": LoadShootableObjDamageReceiver", transform.gameObject);
     }
+
+    //protected virtual void LoadSpawner()
+    //{
+    //    if (this.spawner != null) return;
+    //    this.spawner = transform.parent?.parent.GetComponent<Spawner>();
+    //    Debug.LogWarning(transform.name + ":LoadSpawner", transform.gameObject);
+    //}
 
     //============================================Get=============================================
     protected abstract string GetShootableObjTypeStr();
