@@ -2725,6 +2725,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   junkManager: {fileID: 1800577566}
+  itemDropCounts: []
 --- !u!1 &956288833
 GameObject:
   m_ObjectHideFlags: 0
@@ -4363,7 +4364,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d7ac091cfd8c444c9ff479b101c4ad5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  disLimit: 20
+  disLimit: 100
   currDis: 0
 --- !u!4 &1439189216
 Transform:
@@ -5402,7 +5403,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1800577565
 Transform:
   m_ObjectHideFlags: 0
@@ -6119,7 +6120,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2066582295
 MonoBehaviour:
   m_ObjectHideFlags: 0
