@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ItemDropSpawner : Spawner
@@ -16,15 +17,35 @@ public class ItemDropSpawner : Spawner
     }
 
     //==========================================ItemDrop==========================================
-    public virtual void DropItem(List<ItemDropRate> dropList, Vector2 pos, Quaternion rot)
+    public virtual List<ItemDropSO> DropItem(List<ItemDropRate> dropList, Vector2 pos, Quaternion rot)
     {
         //TODO: Drop with rate
-        if (dropList.Count <= 0) return;
+        List<ItemDropSO> itemDrops = new List<ItemDropSO>();
 
-        ItemCode itemCode = dropList[0].ItemDropSO.ItemCode;
-        Transform itemDrop = this.Spawn(itemCode.ToString(), pos, rot);
-        if (itemDrop == null) Debug.LogWarning(transform.name + ": No Item name " + itemCode.ToString(), transform.gameObject);
-        itemDrop.gameObject.SetActive(true);
+        if (dropList.Count <= 0) return itemDrops;
+
+        itemDrops = DropItemByRate(dropList);
+        if (itemDrops.Count <= 0) return itemDrops;
+
+        float distanceBtwObj = 0.5f;
+        foreach (var itemDrop in itemDrops)
+        {
+            pos = new Vector2(pos.x + distanceBtwObj, pos.y); // Not good
+
+            ItemCode itemCode = itemDrop.ItemCode;
+            Transform itemObj = this.Spawn(itemCode.ToString(), pos, rot);
+
+            if (itemObj == null) Debug.LogWarning(transform.name + "No Item name " + itemCode.ToString(), transform.gameObject); 
+            itemObj.gameObject.SetActive(true);
+            //Debug.Log("Drop");
+        }
+
+        return itemDrops;
+
+        //ItemCode itemCode = dropList[0].ItemDropSO.ItemCode;
+        //Transform itemDrop = this.Spawn(itemCode.ToString(), pos, rot);
+        //if (itemDrop == null) Debug.LogWarning(transform.name + ": No Item name " + itemCode.ToString(), transform.gameObject);
+        //itemDrop.gameObject.SetActive(true);
     }
 
     public virtual void DropFromInventory(ItemInventory itemInventory, Vector2 pos, Quaternion rot)
@@ -36,12 +57,21 @@ public class ItemDropSpawner : Spawner
         ItemDropManager itemDropManager = itemDrop.GetComponent<ItemDropManager>();
         itemDropManager.SetItemInventory(itemInventory);
         itemDrop.gameObject.SetActive(true);
-
     }
 
     //=========================================Drop Rate==========================================
-    protected virtual List<ItemDropRate> DropItemByRate()
+    protected virtual List<ItemDropSO> DropItemByRate(List<ItemDropRate> itemDropRates)
     {
-        return null;
+        List<ItemDropSO> itemDrops = new List<ItemDropSO>();
+
+        foreach (ItemDropRate itemDropRate in itemDropRates)
+        {
+            if (Random.Range(0, 100000) <= itemDropRate.DropRate)
+            {
+                itemDrops.Add(itemDropRate.ItemDropSO);
+            }
+        }
+
+        return itemDrops;
     }
 }
