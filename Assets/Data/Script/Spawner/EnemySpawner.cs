@@ -22,4 +22,42 @@ public class EnemySpawner : Spawner
         instance = this;
         base.Awake();
     }
+
+    //==========================================Spawner===========================================
+    public override Transform Spawn(Transform prefab, Vector3 pos, Quaternion rot)
+    {
+        Transform newEnemyObj = base.Spawn(prefab, pos, rot);
+        this.AddHpBar2Enemy(newEnemyObj);
+
+        return newEnemyObj;
+    }
+
+    //===========================================Hp Bar===========================================
+    protected virtual void AddHpBar2Enemy(Transform enemy)
+    {
+        // EnemyManager
+        ShootableObjManager enemyManager = enemy.GetComponent<ShootableObjManager>();
+        
+        // new HpBar Obj
+        Vector3 spawnPos = enemy.position;
+        Quaternion spawnRot = Quaternion.identity;
+        string hpBarName = HpBarSpawner.Instance.HpBarOne;
+        Transform newHpBarObj = HpBarSpawner.Instance.Spawn(hpBarName, spawnPos, spawnRot);
+
+        if (newHpBarObj == null)
+        {
+            Debug.LogError(transform.name + ": No HpBar Name: " + hpBarName, transform.gameObject);
+            return;
+        }
+
+        // HpBarManager
+        HpBarManager hpBarManager = newHpBarObj.GetComponent<HpBarManager>();
+        
+        // Add HpBar to Enemy
+        hpBarManager.HpBarModify.SetShootableObjManager(enemyManager);
+        hpBarManager.FollowTarget.SetTarget(enemy);
+
+        //Turn On new HpBar Obj
+        newHpBarObj.gameObject.SetActive(true);
+    }
 }

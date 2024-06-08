@@ -19,6 +19,11 @@ public abstract class BaseAbility : HuyMonoBehaviour
         this.Timing();
     }
 
+    protected virtual void Update()
+    {
+
+    }
+
     protected override void LoadComponent()
     {
         base.LoadComponent();
@@ -34,7 +39,7 @@ public abstract class BaseAbility : HuyMonoBehaviour
     }
 
     //===========================================Public===========================================
-    public virtual void Active()
+    public virtual void RestartCooldownAbility()
     {
         this.isReady = false;
         this.timer = 0;
@@ -45,7 +50,7 @@ public abstract class BaseAbility : HuyMonoBehaviour
     {
         if (this.isReady) return;
         
-        this.timer += Time.fixedDeltaTime;
+        this.timer += Time.deltaTime;
         if (this.timer < delay) return;
 
         this.isReady = true;

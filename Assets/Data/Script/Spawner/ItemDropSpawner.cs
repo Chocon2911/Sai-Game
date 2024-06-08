@@ -9,6 +9,9 @@ public class ItemDropSpawner : Spawner
     private static ItemDropSpawner instance;
     public static ItemDropSpawner Instance => instance;
 
+    [SerializeField] protected float gameDropRate = 1f;
+    public float GameDropRate => gameDropRate;
+
     protected override void Awake()
     {
         base.Awake();
@@ -19,7 +22,6 @@ public class ItemDropSpawner : Spawner
     //==========================================ItemDrop==========================================
     public virtual List<ItemDropSO> DropItem(List<ItemDropRate> dropList, Vector2 pos, Quaternion rot)
     {
-        //TODO: Drop with rate
         List<ItemDropSO> itemDrops = new List<ItemDropSO>();
 
         if (dropList.Count <= 0) return itemDrops;
@@ -41,11 +43,6 @@ public class ItemDropSpawner : Spawner
         }
 
         return itemDrops;
-
-        //ItemCode itemCode = dropList[0].ItemDropSO.ItemCode;
-        //Transform itemDrop = this.Spawn(itemCode.ToString(), pos, rot);
-        //if (itemDrop == null) Debug.LogWarning(transform.name + ": No Item name " + itemCode.ToString(), transform.gameObject);
-        //itemDrop.gameObject.SetActive(true);
     }
 
     public virtual void DropFromInventory(ItemInventory itemInventory, Vector2 pos, Quaternion rot)
@@ -59,6 +56,19 @@ public class ItemDropSpawner : Spawner
         itemDrop.gameObject.SetActive(true);
     }
 
+    protected virtual List<ItemDropSO> DropItemByAmount(ItemDropSO itemDropSO, int amount)
+    {
+        if (amount < 0) return null;
+
+        List<ItemDropSO> newDroppedItems = new List<ItemDropSO>();
+        for (int i = 0; i < amount; i++)
+        {
+            newDroppedItems.Add(itemDropSO);
+        }
+
+        return newDroppedItems;
+    }
+
     //=========================================Drop Rate==========================================
     protected virtual List<ItemDropSO> DropItemByRate(List<ItemDropRate> itemDropRates)
     {
@@ -66,10 +76,13 @@ public class ItemDropSpawner : Spawner
 
         foreach (ItemDropRate itemDropRate in itemDropRates)
         {
-            if (Random.Range(0, 100000) <= itemDropRate.DropRate)
-            {
-                itemDrops.Add(itemDropRate.ItemDropSO);
-            }
+            float error = 0.0001f;
+            int dropAmount = Mathf.CeilToInt(itemDropRate.DropRate / 100 * this.gameDropRate - Random.Range(0f, 1f) + error);
+
+            if (dropAmount <= 0) continue;
+
+            List<ItemDropSO> newDroppedItems = this.DropItemByAmount(itemDropRate.ItemDropSO, dropAmount);
+            itemDrops.AddRange(newDroppedItems);
         }
 
         return itemDrops;

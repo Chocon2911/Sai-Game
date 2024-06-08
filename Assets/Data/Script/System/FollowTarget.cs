@@ -18,4 +18,10 @@ public class FollowTarget : HuyMonoBehaviour
         if (this.target == null) return;
         transform.position = Vector2.Lerp(transform.position, target.position, this.speed * Time.fixedDeltaTime);
     }
+
+    //============================================Set=============================================
+    public virtual void SetTarget(Transform target)
+    {
+        this.target = target;
+    }
 }

@@ -13,6 +13,12 @@ public class ObjAppearBiggerByTime : ObjAppear
     [SerializeField] protected float appearTimer;
     [SerializeField] protected float appearDuration;
 
+    protected override void LoadComponent()
+    {
+        base.LoadComponent();
+        this.DefaultStat();
+    }
+
     protected virtual void OnEnable()
     {
         this.InitStat();
@@ -48,9 +54,8 @@ public class ObjAppearBiggerByTime : ObjAppear
         this.appearTimer = 0;
     }
 
-    protected override void DefaultStat()
+    protected virtual void DefaultStat()
     {
-        base.DefaultStat();
         this.beginScale = 0f;
         this.currScale = beginScale;
         this.endScale = 1;

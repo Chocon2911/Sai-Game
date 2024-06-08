@@ -5,12 +5,6 @@ using UnityEngine;
 public abstract class ObjAppear : HuyMonoBehaviour
 {
     [Header("Obj Appear")]
-    [SerializeField] protected bool isAppearing;
-    public bool IsAppearing => isAppearing;
-
-    [SerializeField] protected bool isAppeared;
-    public bool IsAppeared => isAppeared;
-
     [SerializeField] protected List<IObjAppearObserver> observers = new List<IObjAppearObserver>();
     public List<IObjAppearObserver> Observers => observers;
 
@@ -27,7 +21,6 @@ public abstract class ObjAppear : HuyMonoBehaviour
     protected override void LoadComponent()
     {
         base.LoadComponent();
-        this.DefaultStat();
     }
 
     //===========================================Apeear===========================================
@@ -35,8 +28,6 @@ public abstract class ObjAppear : HuyMonoBehaviour
 
     public virtual void Appeared()
     {
-        this.isAppearing = false;
-        this.isAppeared = true;
         this.OnAppearEnd();
     }
 
@@ -63,9 +54,4 @@ public abstract class ObjAppear : HuyMonoBehaviour
     }
 
     //===========================================Other============================================
-    protected virtual void DefaultStat()
-    {
-        this.isAppearing = false;
-        this.isAppeared = false;
-    }
 }

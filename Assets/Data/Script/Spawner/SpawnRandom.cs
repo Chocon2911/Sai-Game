@@ -80,5 +80,4 @@ public class SpawnRandom : HuyMonoBehaviour
         if (this.spawnManager.Spawner.SpawnCount < this.randomLimit) return true;
         return false;
     }
-
 }

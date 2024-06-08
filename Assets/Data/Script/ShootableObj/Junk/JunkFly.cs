@@ -37,7 +37,7 @@ public class JunkFly : ParentFly
     //============================================Get=============================================
     protected virtual Vector3 GetCamPos()
     {
-        if (GameManager.Instance.MainCamera == null) return Vector3.zero;
+        if (GameManager.Instance == null) return Vector3.zero;
         return GameManager.Instance.MainCamera.transform.position;
     }
 }

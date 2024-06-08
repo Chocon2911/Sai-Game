@@ -22,7 +22,7 @@ public class AbilitySummon : BaseAbility
         if (!this.isReady) return;
         if (this.IsMinionLimitReached()) return;
         this.Summon();
-        this.Active();
+        this.RestartCooldownAbility();
     }
 
     protected virtual Transform Summon()

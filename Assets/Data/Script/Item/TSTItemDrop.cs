@@ -10,7 +10,7 @@ public class TSTItemDrop : JunkAbstract
 
     protected virtual void OnEnable()
     {
-        InvokeRepeating(nameof(this.DropItem), 2, 0.0001f);
+        InvokeRepeating(nameof(this.DropItem), 2, 1f);
     }
 
     protected virtual void DropItem()
@@ -60,7 +60,7 @@ public class TSTItemDrop : JunkAbstract
             ItemDropCount itemDropCount = this.itemDropCounts.Find(item => item.itemDropSO.ItemName == droppedItem.ItemName);
 
             itemDropCount.dropTimes++;
-            itemDropCount.rate = itemDropCount.dropTimes * 100000 / itemDropCount.dropCount;
+            itemDropCount.rate = Mathf.Round((float)itemDropCount.dropTimes * 100 / itemDropCount.dropCount * 100) / 100;
         }
     }
 }
@@ -71,5 +71,5 @@ public class ItemDropCount
     public ItemDropSO itemDropSO;
     public int dropTimes;
     public int dropCount;
-    public int rate;
+    public float rate;
 }

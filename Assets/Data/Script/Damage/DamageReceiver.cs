@@ -14,6 +14,9 @@ public abstract class DamageReceiver : HuyMonoBehaviour
     [SerializeField] protected float maxHealth;
     [SerializeField] protected bool isDead;
 
+    public float Health => health;
+    public float MaxHealth => maxHealth;
+
     protected override void LoadComponent()
     {
         base.LoadComponent();

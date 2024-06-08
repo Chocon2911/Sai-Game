@@ -17,10 +17,6 @@ MonoBehaviour:
   MaxHealth: 3
   DropList:
   - ItemDropSO: {fileID: 11400000, guid: 08150e2b47b51784f8b6e12ad0ec2b3c, type: 2}
-    DropRate: 100000
-    MinDrop: 1
-    MaxDrop: 1
+    DropRate: 100
   - ItemDropSO: {fileID: 11400000, guid: 7f92d3a964d308d429b20798e9eda9fa, type: 2}
-    DropRate: 100000
-    MinDrop: 1
-    MaxDrop: 1
+    DropRate: 10

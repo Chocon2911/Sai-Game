@@ -88,7 +88,7 @@ public abstract class Spawner : HuyMonoBehaviour
     {
         Transform newPrefab = this.GetObjFromPool(prefab);
         newPrefab.SetPositionAndRotation(pos, rot);
-        newPrefab.parent = this.holderTrans;
+        newPrefab.SetParent(this.holderTrans);
         this.spawnCount++;
         return newPrefab;
     }
