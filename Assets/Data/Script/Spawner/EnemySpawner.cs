@@ -27,19 +27,19 @@ public class EnemySpawner : Spawner
     public override Transform Spawn(Transform prefab, Vector3 pos, Quaternion rot)
     {
         Transform newEnemyObj = base.Spawn(prefab, pos, rot);
-        this.AddHpBar2Enemy(newEnemyObj);
+        this.AddHpBar2Enemy(newEnemyObj, pos);
 
         return newEnemyObj;
     }
 
     //===========================================Hp Bar===========================================
-    protected virtual void AddHpBar2Enemy(Transform enemy)
+    protected virtual void AddHpBar2Enemy(Transform enemy, Vector3 pos)
     {
         // EnemyManager
         ShootableObjManager enemyManager = enemy.GetComponent<ShootableObjManager>();
         
         // new HpBar Obj
-        Vector3 spawnPos = enemy.position;
+        Vector3 spawnPos = pos;
         Quaternion spawnRot = Quaternion.identity;
         string hpBarName = HpBarSpawner.Instance.HpBarOne;
         Transform newHpBarObj = HpBarSpawner.Instance.Spawn(hpBarName, spawnPos, spawnRot);

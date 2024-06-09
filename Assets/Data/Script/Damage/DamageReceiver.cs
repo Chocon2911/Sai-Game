@@ -65,7 +65,7 @@ public abstract class DamageReceiver : HuyMonoBehaviour
     }
 
     //=============================================Dead===========================================
-    protected virtual bool IsDead()
+    public virtual bool IsDead()
     {
         return this.health <= 0;
     }
