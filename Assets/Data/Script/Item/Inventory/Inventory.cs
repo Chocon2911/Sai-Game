@@ -217,13 +217,11 @@ public class Inventory : HuyMonoBehaviour
 
     protected virtual ItemInventory CreateEmptyItemInventory(ItemDropSO itemDropSO)
     {
-        ItemInventory itemInventory = new ItemInventory
-        {
-            ItemDropSO = itemDropSO,
-            ItemAmount = 0,
-            MaxStack = itemDropSO.DefaultMaxStack,
-        };
+        int newItemAmount = 0;
+        int newItemMaxStack = itemDropSO.DefaultMaxStack;
+        int newItemUpgradeLevel = itemDropSO.ItemUpgradeLevel.Count;
 
+        ItemInventory itemInventory = new ItemInventory(itemDropSO, newItemAmount, newItemMaxStack, newItemUpgradeLevel);
         return itemInventory;
     }
 }

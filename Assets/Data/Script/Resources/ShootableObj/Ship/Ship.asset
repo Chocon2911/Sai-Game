@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShootableObjName: Ship
   ShootableObjType: 4
-  MaxHealth: 10
+  MaxHealth: 1000
   DropList: []

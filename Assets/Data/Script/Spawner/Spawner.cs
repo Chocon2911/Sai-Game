@@ -16,7 +16,6 @@ public abstract class Spawner : HuyMonoBehaviour
     protected override void LoadComponent()
     {
         base.LoadComponent();
-        this.LoadHolderTrans();
         this.LoadHolders();
         this.LoadPrefabs();
     }
@@ -46,12 +45,8 @@ public abstract class Spawner : HuyMonoBehaviour
     {
         if (this.holders.Count > 0) return;
 
-        Transform holderTrans = transform.Find("Holder");
-        if (holderTrans == null) 
-        { 
-            Debug.LogError(transform.name + ": No Holder Object", transform.gameObject);
-            return;
-        }
+        this.LoadHolderTrans();
+        Transform holderTrans = this.holderTrans;
 
         foreach(Transform obj in holderTrans)
         {
@@ -101,6 +96,8 @@ public abstract class Spawner : HuyMonoBehaviour
 
     public virtual void Despawn(Transform obj)
     {
+        if (this.holders.Contains(obj)) return;
+
         this.holders.Add(obj);
         obj.gameObject.SetActive(false);
         this.spawnCount--;

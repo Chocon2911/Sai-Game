@@ -31,8 +31,8 @@ public class AbilityWarp : BaseAbility
         if (this.isWarping) return;
         if (this.warpDirection == Vector4.zero) return;
 
-        Debug.Log(transform.name + ": Warping", transform.gameObject);
-        Debug.Log(this.keyDirection, transform.gameObject);
+        //Debug.Log(transform.name + ": Warping", transform.gameObject);
+        //Debug.Log(this.keyDirection, transform.gameObject);
 
         this.isWarping = true;
         Invoke(nameof(this.WarpFinish), this.warpSpeed);
@@ -48,7 +48,7 @@ public class AbilityWarp : BaseAbility
         // Warp Obj
         this.WarpObj();
 
-        Debug.Log("<b>Warp Finish</b>");
+        //Debug.Log("<b>Warp Finish</b>");
 
         // Refresh Ability
         this.warpDirection.Set(0, 0, 0, 0);

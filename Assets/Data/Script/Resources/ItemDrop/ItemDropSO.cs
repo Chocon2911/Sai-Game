@@ -1,3 +1,4 @@
+using Microsoft.Unity.VisualStudio.Editor;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Item", menuName = "SO/Item/Drop")]
 public class ItemDropSO : ScriptableObject
 {
+    public Sprite ItemIcon;
     public ItemCode ItemCode;
     public ItemType ItemType;
     public string ItemName = "Item";
