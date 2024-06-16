@@ -42,20 +42,20 @@ public class UIDragItem : HuyMonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     //============================================Drag============================================
     public void OnBeginDrag(PointerEventData eventData)
     {
-        Debug.Log(transform.name + ": Begin Drag", transform.gameObject);
+        // Debug.Log(transform.name + ": Begin Drag", transform.gameObject);
         this.image.raycastTarget = false;
         transform.SetParent(UIHotKeyManager.Instance.transform);
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        Debug.Log(transform.name + ": On Drag", transform.gameObject);
+        // Debug.Log(transform.name + ": On Drag", transform.gameObject);
         this.FollowMouse();
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        Debug.Log(transform.name + ": End Drag", transform.gameObject);
+        // Debug.Log(transform.name + ": End Drag", transform.gameObject);
         this.image.raycastTarget = true;
         this.BackToSlot();
     }
