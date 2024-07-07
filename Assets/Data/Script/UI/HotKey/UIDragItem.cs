@@ -14,17 +14,28 @@ public class UIDragItem : HuyMonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     [SerializeField] protected Image image;
     public Image Image => image;
 
+    [Header("Script")]
+
+    [SerializeField] protected UIItemPressable pressable;
+    public UIItemPressable Pressable => pressable;
+
     [Header("Stat")]
     [SerializeField] protected float backSpeed = 1;
 
     protected override void LoadComponent()
     {
         base.LoadComponent();
+        
+        //Other
         this.LoadItemSlotHolder();
         this.LoadImage();
+
+        //Script
+        this.LoadPressable();
     }
 
     //=======================================Load Component=======================================
+    //Other
     protected virtual void LoadItemSlotHolder()
     {
         if (this.itemSlotHolder != null) return;
@@ -37,7 +48,15 @@ public class UIDragItem : HuyMonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         if (this.image != null) return;
         this.image = transform.GetComponent<Image>();
         Debug.LogWarning(transform.name + ": Load Image", transform.gameObject);
-    }    
+    }
+
+    //Script
+    protected virtual void LoadPressable()
+    {
+        if (this.pressable != null) return;
+        this.pressable = transform.GetComponentInChildren<UIItemPressable>();
+        Debug.LogWarning(transform.name + ": Load Pressable", transform.gameObject);
+    }
 
     //============================================Drag============================================
     public void OnBeginDrag(PointerEventData eventData)
@@ -56,6 +75,7 @@ public class UIDragItem : HuyMonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     public void OnEndDrag(PointerEventData eventData)
     {
         // Debug.Log(transform.name + ": End Drag", transform.gameObject);
+        
         this.image.raycastTarget = true;
         this.BackToSlot();
     }
@@ -77,12 +97,28 @@ public class UIDragItem : HuyMonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         float distance = Mathf.Sqrt(Mathf.Pow(newPos.x - itemSlotPos.x, 2) + Mathf.Pow(newPos.y - itemSlotPos.y, 2));
         float error = 0.1f;
 
+        this.ItemSlotLoadThis();
+
         if (distance > error) Invoke(nameof(BackToSlot), Time.fixedDeltaTime);
         else
         {
             transform.SetParent(itemSlotHolder);
             transform.position = transform.parent.position;
         }
+    }
+
+    //============================================Load============================================
+    protected virtual void ItemSlotLoadThis()
+    {
+        UIItemSlot itemSlot = ItemSlotHolder.GetComponent<UIItemSlot>();
+
+        if (itemSlot == null)
+        {
+            Debug.LogError(transform.name + ": Can't find UIItemSlot", transform.gameObject);
+            return;
+        }
+
+        itemSlot.SetDragItem(this);
     }
 
     //============================================Set=============================================
